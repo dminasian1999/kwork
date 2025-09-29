@@ -77,29 +77,51 @@ const PieChartNav = ({ navigate }) => {
   const cx = 150;
   const cy = 150;
 
-  const polarToCartesian = (centerX, centerY, radius, angleInDegrees) => {
-    const angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0;
+  const polarToCartesian = (
+    centerX: number,
+    centerY: number,
+    radius: number,
+    angleInDegrees: number,
+  ) => {
+    const angleInRadians = ((angleInDegrees - 90) * Math.PI) / 180.0
     return {
-      x: centerX + (radius * Math.cos(angleInRadians)),
-      y: centerY + (radius * Math.sin(angleInRadians))
-    };
-  };
+      x: centerX + radius * Math.cos(angleInRadians),
+      y: centerY + radius * Math.sin(angleInRadians),
+    }
+  }
 
-  const describeArc = (x, y, radius, startAngle, endAngle) => {
-    const start = polarToCartesian(x, y, radius, endAngle);
-    const end = polarToCartesian(x, y, radius, startAngle);
+  const describeArc = (
+    x: number,
+    y: number,
+    radius: number,
+    startAngle: number,
+    endAngle: number,
+  ) => {
+    const start = polarToCartesian(x, y, radius, endAngle)
+    const end = polarToCartesian(x, y, radius, startAngle)
 
-    const largeArcFlag = endAngle - startAngle <= 180 ? 0 : 1;
+    const largeArcFlag = endAngle - startAngle <= 180 ? 0 : 1
 
     const d = [
-      "M", start.x, start.y,
-      "A", radius, radius, 0, largeArcFlag, 0, end.x, end.y,
-      "L", x, y,
-      "Z"
-    ].join(" ");
+      "M",
+      start.x,
+      start.y,
+      "A",
+      radius,
+      radius,
+      0,
+      largeArcFlag,
+      0,
+      end.x,
+      end.y,
+      "L",
+      x,
+      y,
+      "Z",
+    ].join(" ")
 
-    return d;
-  };
+    return d
+  }
 
   return (
     <div className="flex flex-col items-center p-8 bg-gray-900 rounded-xl shadow-2xl">
@@ -138,7 +160,7 @@ const PieChartNav = ({ navigate }) => {
 };
 
 // Tooltip Component
-const Tooltip = ({ text, children }) => (
+const Tooltip = ({ text, children }:any) => (
   <div className="relative flex flex-col items-center group">
     {children}
     <div className="absolute top-full flex flex-col items-center hidden mt-2 group-hover:flex w-max z-20">
@@ -150,7 +172,7 @@ const Tooltip = ({ text, children }) => (
 );
 
 // Gated Content Placeholder
-const GatedContent = ({ navigate }) => (
+const GatedContent = ({ navigate }:any) => (
   <div className="p-8 text-center bg-gray-800 border border-yellow-500 rounded-lg shadow-xl max-w-lg mx-auto mt-10">
     <h2 className="text-2xl font-bold text-yellow-400 mb-4">Премиум-контент</h2>
     <p className="text-gray-300 mb-6">Этот раздел доступен только для пользователей с активной подпиской.</p>
@@ -352,10 +374,19 @@ export default function App2() {
       }
     };
 
-    const handleRowClick = (item) => {
+    const handleRowClick = (item: {
+      id?: number
+      company: any
+      pe?: number
+      evEbitda?: number
+      roe?: number
+      description?: string
+    }) => {
       // Имитация перехода на страницу 3 с конкретным описанием
-      alert(`Переход на детальную страницу компании: ${item.company}. \n\nВ реальном приложении это будет переход на /historical-data/${item.company}`);
-    };
+      alert(
+        `Переход на детальную страницу компании: ${item.company}. \n\nВ реальном приложении это будет переход на /historical-data/${item.company}`,
+      )
+    }
 
     return (
       <div className="p-8">
@@ -415,9 +446,9 @@ export default function App2() {
   const HistoricalPage = () => {
     const [expandedId, setExpandedId] = useState(null);
 
-    const toggleExpand = (id) => {
-      setExpandedId(expandedId === id ? null : id);
-    };
+    const toggleExpand = (id: number | React.SetStateAction<null>) => {
+      setExpandedId(expandedId === id ? null : id)
+    }
 
     return (
       <div className="p-8 max-w-4xl mx-auto">
@@ -481,7 +512,7 @@ export default function App2() {
       setMessage(`Пост "${newPost.title}" успешно добавлен.`);
     };
 
-    const handleToggleFavorite = (postId) => {
+    const handleToggleFavorite = (postId: number) => {
       if (!isAuthenticated) {
         setMessage('Для добавления в избранное необходимо авторизоваться.');
         return;
@@ -514,6 +545,7 @@ export default function App2() {
     const closePost = () => setSelectedPost(null);
 
     const postToDisplay = selectedPost || posts;
+
 
     // Post Creation Modal (Only visible to Admin/Author/Emitter)
     const AddPostModal = () => (
@@ -983,7 +1015,7 @@ export default function App2() {
             <input
               type="number"
               value={adminPriceInput}
-              onChange={(e) => setAdminPriceInput(e.target.value)}
+              onChange={(e) => setAdminPriceInput(e.target.value.toString())}
               className="w-full p-1 bg-gray-700 border border-gray-600 rounded text-white"
             />
             <button onClick={handlePriceChange} className="mt-2 w-full bg-red-600 hover:bg-red-700 text-white py-1 rounded">Изменить цену</button>
