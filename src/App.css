@@ -1,90 +1,211 @@
-.App {
-  text-align: center;
-
+/* --- Global Styles --- */
+body {
+  font-family: 'Raleway', sans-serif; /* Use your desired font */
+  color: #333;
 }
 
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* --- Hero Section Styling (k1.png) --- */
+.hero-section {
+  position: relative;
+  height: 90vh; /* Takes up most of the viewport height */
+  background:
+    /* Overlay to darken and blur image */
+          linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+            /* Main Image */
+          url('/path/to/hero-model.jpg') no-repeat center center;
+  background-size: cover;
+  color: white;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-float infinite 3s ease-in-out;
+.hero-title {
+  font-size: 3.5rem;
+  line-height: 1.1;
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  max-width: 500px;
+  font-weight: 300;
+}
+
+.hero-btn {
+  padding: 10px 40px;
+  border-radius: 0; /* Square button style */
+}
+
+/* --- Features Section Styling (k1.png) --- */
+/* Custom Bootstrap column size for 5 items in a row (20% width) */
+.col-lg-2-4 {
+  flex: 0 0 auto;
+  width: 20%;
+}
+@media (max-width: 991.98px) {
+  .col-lg-2-4 {
+    width: 33.333%;
   }
 }
 
-.App-header {
-  min-height: 100vh;
+.feature-item i {
+  color: #999; /* Subtle icon color */
+  font-size: 3rem !important;
+}
+
+.feature-title {
+  font-size: 1rem;
+  color: #333;
+}
+
+.feature-subtitle {
+  font-size: 0.9rem;
+}
+
+/* --- Catalog & Product Styling (k1.png, k3.png) --- */
+.catalog-title {
+  font-weight: 700;
+}
+
+.catalog-btn, .product-btn {
+  border-radius: 0;
+  padding: 10px 25px;
+  background-color: #333;
+  border-color: #333;
+}
+
+.product-img-placeholder {
+  /* Placeholder for actual image styling */
+  height: 350px;
+  background-color: #eee;
+  border-radius: 4px;
+}
+
+.product-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 5px;
+}
+
+.product-price {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.dark-cta-block {
+  background-color: #333;
+  color: white;
+  padding: 60px 0;
+}
+
+/* --- Tailoring/Image Grid Styling (k2.png) --- */
+.tailoring-section {
+  text-align: center;
+}
+
+.tailoring-title {
+  font-weight: 700;
+}
+
+.tailoring-btn {
+  border-radius: 0;
+  padding: 10px 40px;
+}
+
+.category-tile {
+  position: relative;
+  background-color: #eee;
+  background-size: cover;
+  background-position: center;
+  border-radius: 4px;
+  overflow: hidden;
+  height: 100%;
+  min-height: 150px; /* Base height for small tiles */
   display: flex;
-  flex-direction: column;
+  align-items: flex-end; /* Label at the bottom */
+  padding: 15px;
+}
+
+.category-tile.main-tile {
+  min-height: 450px; /* Taller tile */
+}
+
+.category-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.6); /* Dark overlay for label */
+  color: white;
+  padding: 8px 15px;
+  font-size: 0.9rem;
+  width: 100%;
+}
+
+/* --- Footer & Contact Styling (k4.png) --- */
+.footer-dark-bg {
+  background-color: #333;
+}
+
+.map-placeholder {
+  background-color: #555;
+  height: 300px;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  color: #ccc;
+  font-size: 1.1rem;
 }
 
-.App-link {
-  color: rgb(30, 31, 34);
-}
-
-@keyframes App-logo-float {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(10px);
-  }
-  100% {
-    transform: translateY(0px);
-  }
-}
-.main-color {
-  background-color: rgb(189, 216, 145);
-}
-
-.carousel-item > .row > .col {
-  transition: transform 0.5s;
-}
-
-.carousel-img-wrapper {
-  height: 400px;
-  overflow: hidden;
-}
-
-.carousel-img {
-  height: 100%;
-  object-fit: cover;
-}
-
-.order-card {
-  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-  border-radius: 0.5rem;
-}
-
-.order-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #f8f9fa;
-  padding: 1rem;
-  border-bottom: 1px solid #dee2e6;
-  border-top-left-radius: 0.5rem;
-  border-top-right-radius: 0.5rem;
-}
-
-.order-status {
+.footer-list a {
+  text-decoration: none;
   font-size: 0.9rem;
-  font-weight: 500;
-  padding: 0.4rem 0.75rem;
-  border-radius: 20px;
+  transition: color 0.2s;
+  line-height: 2;
 }
 
-.card-body .btn {
-  margin-right: 0.5rem;
+.footer-list a:hover {
+  color: white !important;
 }
 
-.table-actions {
-  display: flex;
-  gap: 0.5rem;
+.footer-divider {
+  border-top: 1px solid #555;
+}
+.myh1 {
+  width: 967px;              /* valid */
+  height: 160px;             /* added px, was missing */
+  opacity: 1;                /* valid */
+
+  font-weight: 700;          /* Bold */
+  font-style: normal;        /* use "normal" or "italic" */
+  font-size: 65px;           /* valid */
+  line-height: 80px;         /* valid */
+  letter-spacing: 4px;       /* % not valid, replaced with px */
+  text-transform: uppercase; /* valid */
+}
+
+.myText {
+  width: 850px;               /* added px */
+  height: 144px;              /* added px */
+  opacity: 1;
+
+  font-family: 'Raleway', sans-serif;
+  font-weight: 500;           /* Medium weight */
+  font-style: normal;         /* Medium is not valid, use normal/italic */
+  font-size: 38px;
+  line-height: 48px;
+  letter-spacing: 4px;        /* % not supported, use px */
+}
+.myBox {
+  width: 410px;
+  height: 65px;
+  opacity: 1;
+
+  display: flex;              /* to make gap work */
+  gap: 10px;
+
+  padding: 18px 59px;         /* shorthand top/bottom, left/right */
+
+  border: 0.2px solid rgba(26, 26, 26, 0.3);  /* #1A1A1A4D converted to RGBA */
+  border-radius: 4px;         /* optional: add rounding if needed */
+
+  background: #FAFAFA;
+
+  box-shadow: 4px 6px 15px 0px rgba(51, 51, 51, 0.05);
 }

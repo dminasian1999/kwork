@@ -1,15 +1,112 @@
 import payment from "../images/payment-img.jpg"
 import { AddressT, NavItemT } from "./types.ts"
-
+import logo from '../utils/images/logo/logo.png'
+import bgHero from '../utils/images/bgHero.jpg'
+import bgHero2 from '../utils/images/bgHero2.jpg'
+import bag from '../utils/images/icons/bag.png'
+import dress from '../utils/images/icons/dress.png'
+import location from '../utils/images/icons/location.png'
+import switchUser from '../utils/images/icons/switchUser.png'
+import dress2 from '../utils/images/icons/dress2.png'
+import cat1img from '../utils/images/каталог1.jpg'
+import cat2img from '../utils/images/каталог2.jpg'
+import cat3img from '../utils/images/каталог3.jpg'
+import sample1 from '../utils/images/exaples/exaple1.jpg'
+import sample2 from '../utils/images/exaples/exaple2.jpg'
+import sample3 from '../utils/images/exaples/exaple3.jpg'
+import sample4 from '../utils/images/exaples/exaple4.jpg'
+import read1 from '../utils/images/exaples/ready1.jpg'
+import read2 from '../utils/images/exaples/ready2.jpg'
+import read3 from '../utils/images/exaples/ready3.jpg'
+import icon1 from '../utils/images/icons/whatsApp.png'
+import icon2 from '../utils/images/icons/telegram.png'
+import icon3 from '../utils/images/icons/vk.png'
+import map from '../utils/images/exaples/map.png'
+import hero3 from '../utils/images/hero3.png'
 // ====== Assets ======
 
-// ====== Navigation ======
+export const logoImg = logo;
+export const bagIcon = bag;
+export const dressIcon = dress;
+export const locationIcon = location;
+export const switchUserIcon = switchUser;
+export const dress2Icon = dress2;
+export const bgHeroImg = bgHero;
+export const bgHero2Img = bgHero2;
+export const cat1 = cat1img;
+export const cat2 = cat2img;
+export const cat3 = cat3img;
+export const ex1 = sample1;
+export const ex2 = sample2;
+export const ex3 = sample3;
+export const ex4 = sample4;
+export const readyImg1 = read1;
+export const readyImg2 = read2;
+export const readyImg3 = read3;
+export const mapImg = map;
+export const hero3Img = hero3;
+
+export const icons = [
+  { label: "wh", imageUrl:icon1, alt: "w" },
+  { label: "t", imageUrl: icon2, alt: "t" },
+  { label: "vk", imageUrl: icon3, alt: "vk" },
+]
+
+
+export const categoryTiles = [
+  { label: "Одежда", imageUrl:ex1, alt: "Одежда" },
+  { label: "Обувь", imageUrl: ex2, alt: "Обувь" },
+  { label: "Аксессуары", imageUrl: ex3, alt: "Аксессуары" },
+  { label: "Сумки", imageUrl: ex3, alt: "Сумки" },
+  {
+    label: "Для вечеринок",
+    imageUrl: "/path/to/img5.jpg",
+    alt: "Для вечеринок",
+  },
+]
+export const rentalItems = [
+  { title: "Тренч looks", price: "7 900 ₽",img: cat1 },
+  { title: "Тренч looks", price: "7 900 ₽" ,img: cat2},
+  { title: "Тренч looks", price: "7 900 ₽" ,img: cat3},
+]
+export const readyItems = [
+  { title: "ШУБА ИЗ ЭКО МЕХА", price: "7 900 ₽",img: readyImg1 },
+  { title: "ШУБА ИЗ ЭКО МЕХА", price: "7 900 ₽" ,img: readyImg2},
+  { title: "ШУБА ИЗ ЭКО МЕХА", price: "7 900 ₽" ,img: readyImg3},
+]
+
+export const features = [
+  {
+    iconClass: bagIcon,
+    title: "Большой каталог",
+    subtitle: "1000+ изделий",
+  },
+  {
+    iconClass: dressIcon,
+    title: "Быстро готовы сделать",
+    subtitle: "изделие на заказ",
+  },
+  {
+    iconClass: locationIcon,
+    title: "Приходите в наш шоурум",
+    subtitle: "все померить",
+  },
+  {
+    iconClass: switchUserIcon,
+    title: "Стилист онлайн или оффлайн",
+    subtitle: "может составить ваш лучший лук",
+  },
+  {
+    iconClass: dress2Icon,
+    title: "Вы всегда можете подобрать себе",
+    subtitle: "образ в каталоге образов",
+  },
+]
+
 export const navItems: NavItemT[] = [
-  { title: "Home", route: "home" },
-  { title: "Shop", route: "shop" },
-  { title: "Collections", route: "collections" },
-  { title: "About", route: "about" },
-  { title: "Contact", route: "contact" },
+  { title: "Каталог", route: "Каталог" },
+  { title: "Пошив", route: "Пошив" },
+  { title: "Образы", route: "Образы" },
 ]
 
 export const countries = [
@@ -528,3 +625,11 @@ export const subscriptionPrices = {
   "6m": 8990,
   "12m": 14990,
 }
+
+
+
+
+
+
+
+
