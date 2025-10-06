@@ -3,10 +3,11 @@ import { createRoot } from "react-dom/client"
 import { Provider } from "react-redux"
 import { store } from "./app/store"
 import { BrowserRouter } from "react-router-dom"
-import './index.css'
+// import './index.css'
+import 'tailwindcss/index.css'
+// import "bootstrap/dist/css/bootstrap.min.css";
+// import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import App from "./App.tsx"
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 
 const container = document.getElementById("root")
@@ -18,6 +19,7 @@ if (!container) {
 const root = createRoot(container)
 
 root.render(
+<div className={"container-fluid"}>
   <StrictMode>
     <BrowserRouter>
       <Provider store={store}>
@@ -25,4 +27,5 @@ root.render(
       </Provider>
     </BrowserRouter>
   </StrictMode>,
+</div>
 )
