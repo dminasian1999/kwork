@@ -170,7 +170,7 @@ const ContactForm = ({ setActivePage }) => {
           <div
             className={`p-3 mb-4 rounded-lg text-sm font-medium ${status === "success" ? "bg-green-100 text-green-700" : status === "error" ? "bg-red-100 text-red-700" : "bg-blue-50 text-blue-600"}`}
           >
-            {statusMessage[status]}
+            {statusMessage.success}
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
