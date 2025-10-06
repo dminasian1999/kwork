@@ -1,8 +1,9 @@
 export interface NavItemT {
   title: string
   route: string
-  // subItems?: NavItemT[];
+  children?: NavItemT[]  // 👈 добавлено для выпадающего меню
 }
+
 
 export interface CollectionT {
   id: string

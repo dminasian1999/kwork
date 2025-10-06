@@ -1,145 +1,98 @@
-import React from "react"
-import { Link, useNavigate } from "react-router-dom"
-import { useAppSelector } from "../app/hooks"
-import { logoImg, navItems } from "../utils/constants.ts"
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAppSelector } from "../app/hooks";
+import { adminInfo, mailIcon, navItems } from "../utils/constants"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import ThemeSwitcher from "./ThemeSwitcher.tsx"
 
 const Header = () => {
-  const nav = useNavigate()
-  const cart = useAppSelector(state => state.user.profile.cart)
-  const user = useAppSelector(state => state.user.profile)
-  const token = useAppSelector(state => state.token)
+  const nav = useNavigate();
+  const cart = useAppSelector(state => state.user.profile.cart);
+  const user = useAppSelector(state => state.user.profile);
 
   return (
-    // Remove 'navbar navbar-expand-lg' classes for a cleaner base
-    <nav className="header-custom">
-      <div className="container d-flex align-items-center justify-content-between p-3">
-
-        {/* ====================================
-           Left Column: Desktop Navigation (Hidden on Mobile)
-        ==================================== */}
-        <div className="d-none d-lg-block col-lg-4">
-          <ul className="navbar-nav flex-row justify-content-start">
-            {navItems.slice(0, 3).map(item => ( // Assuming you only want 3-4 main links
-              <li key={item.route} className="nav-item me-4">
-                {/* Use custom link styling for the clean look */}
-                <Link to={`/${item.route}`} className="nav-link nav-link-custom">
-                  {item.title.toUpperCase()}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* ====================================
-           Center Column: Logo
-        ==================================== */}
-        <div className="col-4 d-flex justify-content-center">
-          <a className="navbar-brand header-logo" href="/">
-            <img
-              className="rounded-circle"
-              height={30} // Smaller size for the clean, minimalist look
-              src={logoImg}
-              alt="Brand Logo"
-              title="Brand Logo"
-            />
-          </a>
-        </div>
-
-        {/* ====================================
-           Right Column: Utility & Mobile Toggle
-        ==================================== */}
-        <div className="d-flex align-items-center justify-content-end col-4">
-
-          {/* Social/Utility Icons (WhatsApp, VK, Search, Cart) - Desktop */}
-          <div className="d-none d-lg-flex right-icons align-items-center">
-            {/* WhatsApp */}
-            <a href="https://wa.me/" className="me-3" target="_blank" rel="noopener noreferrer">
-              <i className="icon anm anm-whatsapp me-3"></i>
-            </a>
-            {/* VK */}
-            <a href="https://vk.com/" className="me-3" target="_blank" rel="noopener noreferrer">
-              <i className="icon anm anm-vk me-3"></i>
-            </a>
-            {/* Search */}
-            <button type="button" className="btn--link me-3">
-              <i className="icon anm anm-search-l"></i>
-            </button>
-          </div>
-
-
-          {/* Cart Icon */}
-          <div className="site-cart position-relative me-3">
-            {cart && (
-              <Link to="/cart" className="site-header__cart" title="Cart">
-                <i className="icon anm anm-bag-l"></i>
-                <span
-                  id="CartCount"
-                  className="site-header__cart-count"
-                  data-cart-render="item_count"
-                >
-                  {cart.items.length}
-                </span>
-              </Link>
-            )}
-          </div>
-
-          {/* Mobile Toggle Button (Visible on Mobile) */}
-          <button
-            className="navbar-toggler btn--link site-header__menu js-mobile-nav-toggle mobile-nav--open d-lg-none"
-            data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasNavbar"
-            aria-controls="offcanvasNavbar"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-        </div>
-
-        {/* ====================================
-           Offcanvas Menu (Mobile Only) - Structure remains similar
-        ==================================== */}
-        {/* ... Offcanvas code (keep this as is for the mobile menu) ... */}
+    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm shadow-md">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+        {/* Логотип */}
         <div
-          className="offcanvas offcanvas-start"
-          tabIndex={-1}
-          id="offcanvasNavbar"
-          aria-labelledby="offcanvasNavbarLabel"
+          onClick={() => nav("/")}
+          className="cursor-pointer text-3xl font-extrabold text-alt-primary"
         >
-          <div className="offcanvas-header">
-            <h5 className="offcanvas-title" id="offcanvasNavbarLabel">
-              Menu
-            </h5>
-            <button
-              type="button"
-              className="btn-close"
-              data-bs-dismiss="offcanvas"
-              aria-label="Close"
-            ></button>
-          </div>
-
-          <div className="offcanvas-body">
-            <ul className="navbar-nav justify-content-start flex-grow-1">
-              {navItems.map(item => (
-                <li key={item.route} className="nav-item">
-                  <a href={`/${item.route}`} className="nav-link">
-                    <h5 className="fw-bolder">{item.title}</h5>
-                  </a>
-                </li>
-              ))}
-              {token && user.roles.includes("ADMINISTRATOR") && (
-                <li className="nav-item">
-                  <a href="/all-orders" className="nav-link">
-                    <h5 className="fw-bolder">All Orders</h5>
-                  </a>
-                </li>
-              )}
-            </ul>
-          </div>
+          Alt<span className="text-alt-cta">Tech</span>
         </div>
 
-      </div>
-    </nav>
-  )
-}
+        {/* Навигация */}
+        <ul className="nav nav-tabs">
+          {navItems.map(item => (
+            <li
+              key={item.title}
+              className={`nav-item ${item.children ? "dropdown" : ""}`}
+            >
+              {item.children ? (
+                <>
+                  <a
+                    className="nav-link dropdown-toggle text-dark"
+                    href="#"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    {item.title}
+                  </a>
+                  <ul className="dropdown-menu">
+                    {item.children.map(sub => (
+                      <li key={sub.title}>
+                        <Link className="dropdown-item text-dark" to={sub.route}>
+                          {sub.title}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              ) : (
+                <Link className="nav-link text-dark" to={item.route}>
+                  {item.title}
+                </Link>
+              )}
+            </li>
+          ))}
+        </ul>
+        <div className="mail d-flex gap-2">
+          <img className={'object-fit-cover m-1' +
+            ''} src={mailIcon} alt={'mail'}/>
 
-export default Header
+          <div className="text">{adminInfo.email}</div>
+        </div>
+     <ThemeSwitcher/>
+
+        {/* CTA кнопка */}
+        <Link
+          to="/contact"
+          className="hidden sm:inline-block px-6 py-3 bg-alt-cta text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300"
+        >
+          Получить консультацию        </Link>
+
+        {/* Mobile menu button */}
+        <button className="lg:hidden text-alt-primary p-2 rounded-lg hover:bg-gray-100 transition duration-150">
+          <svg
+            className="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M4 6h16M4 12h16m-7 6h7"
+            ></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+  );
+};
+
+export default Header;

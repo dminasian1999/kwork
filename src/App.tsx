@@ -60,6 +60,7 @@ const App = () => {
   // }, [location.pathname])
   return (
     <div className={'container-fluid m-0 p-0'}>
+    {/*<div >*/}
       <ProductsContext.Provider
         value={{
           products,

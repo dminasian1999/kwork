@@ -1,127 +1,62 @@
 import React from "react"
-import { bgHero2Img, bgHeroImg, categoryTiles, subscriptionPrices } from "../utils/constants.ts"
+import { usImg } from "../utils/constants.ts"
 
-const TailoringSection = () => (
-  <section className="tailoring-section py-5 my-5 text-center">
-    <div className="container">
-      <div className="d-flex justify-content-between align-items-center mb-4">
-        <h2
-          className="catalog-title text-start"
-          style={{
-            fontFamily: "'Raleway', sans-serif",
-            fontWeight: 500, // Medium weight
-            fontStyle: "normal", // Medium isn’t valid, use normal/italic
-            fontSize: "50px",
-            lineHeight: "54px",
-            letterSpacing: "4px", // % not valid in React inline styles
-            textTransform: "uppercase",
-          }}
-        >
-          ИНДИВИДУАЛЬНЫЙ ПОШИВ И ПОДГОНКА
-        </h2>
+const TailoringSection = () => {
+  const bullets = [
+    {
+      icon: "10+",
+      title: "Более 10 лет на рынке",
+      desc: "Опыт в проектах по интеграции и цифровой трансформации, успешные внедрения более 50 проектов.",
+    },
+    {
+      icon: "✔",
+      title: "Фокус на бизнес-метриках",
+      desc: "Планируем решения под KPI бизнеса — рост маржи, снижение TCO и time-to-market.",
+    },
+    {
+      icon: "🏅",
+      title: "Экспертность и сертификация",
+      desc: "Команда сертифицированных архитекторов и инженеров, опыт работы с крупными данными.",
+    },
+  ]
 
-        <button className="btn btn-dark text-uppercase fw-bold catalog-btn rounded-0">
-          Заказать пошив
-        </button>
-      </div>
-      <p className="text-muted mb-4 text-start" style={{ maxWidth: "600" }}>
-        Не нашли идеальный размер или хотите уникальный наряд? Мы создадим
-        одежду по вашим меркам, учитывая все ваши пожелания..
-      </p>
-    </div>
-    <div id="carouselExampleIndicators" className="carousel slide">
-      <div className="carousel-indicators">
-        <button
-          type="button"
-          data-bs-target="#carouselExampleIndicators"
-          data-bs-slide-to="0"
-          className="active"
-          aria-current="true"
-          aria-label="Slide 1"
-        ></button>
-        <button
-          type="button"
-          data-bs-target="#carouselExampleIndicators"
-          data-bs-slide-to="1"
-          aria-label="Slide 2"
-        ></button>
-        <button
-          type="button"
-          data-bs-target="#carouselExampleIndicators"
-          data-bs-slide-to="2"
-          aria-label="Slide 3"
-        ></button>
-      </div>
-      <div className="carousel-inner">
+  const partners = ["Microsoft", "Snowflake", "DB"]
 
-        <div className="carousel-item active"  style={{height:"600px"}}>
-          <img src={bgHero2Img} className="d-block w-100  object-fit-cover" alt="..." />
-        </div>
-        <div className="carousel-item "  style={{height:"600px"}}>
-          <img src={bgHero2Img} className="d-block w-100  object-fit-cover" alt="..." />
-        </div>
-        <div className="carousel-item "  style={{height:"600px"}}>
-          <img src={bgHero2Img} className="d-block w-100  object-fit-cover" alt="..." />
-        </div>
-      </div>
-      <button
-        className="carousel-control-prev"
-        type="button"
-        data-bs-target="#carouselExampleIndicators"
-        data-bs-slide="prev"
-      >
-        <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span className="visually-hidden">Previous</span>
-      </button>
-      <button
-        className="carousel-control-next"
-        type="button"
-        data-bs-target="#carouselExampleIndicators"
-        data-bs-slide="next"
-      >
-        <span className="carousel-control-next-icon" aria-hidden="true"></span>
-        <span className="visually-hidden">Next</span>
-      </button>
-    </div>
-    {/* Image Tile Grid */}
+  return (
+    <section
+      id="about"
+      aria-label="Почему клиенты выбирают нас"
+      className="container row max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 bg-white rounded-2xl shadow-md my-12"
+    >
 
-    <div className="container mt-5 pt-3">
-      <div className="row g-3 ">
-        <div className="col-12 col-md-6 col-lg-4  ">
-          <div
-            className="category-tile main-tile rounded-0"
-            style={{ backgroundImage: `url(${categoryTiles[0].imageUrl})` }}
-          >
-            <div className="category-label fw-bold">Спецпредложение:</div>
-          </div>
-        </div>
+      <div className="col-md-6">
+        <h3 className="text-start ">
+          Почему клиенты выбирают нас?
+        </h3>
+        <div className="grid lg:grid-cols-2  items-start mt-5">
 
-        <div className="col-12 col-md-6 col-lg-4">
-          <div
-            className="category-tile main-tile rounded-0"
-            style={{ backgroundImage: `url(${categoryTiles[1].imageUrl})` }}
-          >
-            <div className="category-label fw-bold">Спецпредложение:</div>
-          </div>
-        </div>
-
-        <div className="col-12 col-md-6 col-lg-4 d-flex flex-column  justify-content-between rounded-0 gap-2 ">
-          {/* Three smaller stacked tiles */}
-          {categoryTiles.slice(1,4).map((tile, index) => (
-            <div key={index} className="flex-fill  category-tile-wrap-sm ">
-              <div
-                className="category-tile small-tile rounded-0"
-                style={{ backgroundImage: `url(${tile.imageUrl})` }}
-              >
-                <div className="category-label fw-bold">{tile.label}</div>
+          <div className="space-y-6" role="list">
+            {bullets.map((item, idx) => (
+              <div key={idx} className="flex items-start" role="listitem">
+                <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-alt-cta text-white font-bold text-lg rounded-full mr-4">
+                  {item.icon}
+                </div>
+                <div>
+                  <h6 className="font-semibold text-alt-primary">
+                    {item.title}
+                  </h6>
+                  <p className="text-gray-600 text-sm mt-1">{item.desc}</p>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
-    </div>
-  </section>
-)
-
+      <div className="col-md-6">
+        <img className={'rounded-4'} src={usImg} alt={"us"} />
+      </div>
+    </section>
+  )
+}
 
 export default TailoringSection

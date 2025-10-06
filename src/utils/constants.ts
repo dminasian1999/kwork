@@ -1,60 +1,90 @@
-import payment from "../images/payment-img.jpg"
 import { AddressT, NavItemT } from "./types.ts"
-import logo from '../utils/images/logo/logo.png'
-import bgHero from '../utils/images/bgHero.jpg'
-import bgHero2 from '../utils/images/bgHero2.jpg'
-import bag from '../utils/images/icons/bag.png'
-import dress from '../utils/images/icons/dress.png'
-import location from '../utils/images/icons/location.png'
-import switchUser from '../utils/images/icons/switchUser.png'
-import dress2 from '../utils/images/icons/dress2.png'
-import cat1img from '../utils/images/каталог1.jpg'
-import cat2img from '../utils/images/каталог2.jpg'
-import cat3img from '../utils/images/каталог3.jpg'
-import sample1 from '../utils/images/exaples/exaple1.jpg'
-import sample2 from '../utils/images/exaples/exaple2.jpg'
-import sample3 from '../utils/images/exaples/exaple3.jpg'
-import sample4 from '../utils/images/exaples/exaple4.jpg'
-import read1 from '../utils/images/exaples/ready1.jpg'
-import read2 from '../utils/images/exaples/ready2.jpg'
-import read3 from '../utils/images/exaples/ready3.jpg'
-import icon1 from '../utils/images/icons/whatsApp.png'
-import icon2 from '../utils/images/icons/telegram.png'
-import icon3 from '../utils/images/icons/vk.png'
-import map from '../utils/images/exaples/map.png'
-import hero3 from '../utils/images/hero3.png'
+import logo from "../utils/images/logo/logo.png"
+import bgHero from "../utils/images/bgHero.jpg"
+import bgHero2 from "../utils/images/bgHero2.jpg"
+import bag from "../utils/images/icons/bag.png"
+import dress from "../utils/images/icons/dress.png"
+import location from "../utils/images/icons/location.png"
+import switchUser from "../utils/images/icons/switchUser.png"
+import dress2 from "../utils/images/icons/dress2.png"
+import cat1img from "../utils/images/каталог1.jpg"
+import cat2img from "../utils/images/каталог2.jpg"
+import cat3img from "../utils/images/каталог3.jpg"
+import sample1 from "../utils/images/exaples/exaple1.jpg"
+import sample2 from "../utils/images/exaples/exaple2.jpg"
+import sample3 from "../utils/images/exaples/exaple3.jpg"
+import sample4 from "../utils/images/exaples/exaple4.jpg"
+import read1 from "../utils/images/exaples/ready1.jpg"
+import read2 from "../utils/images/exaples/ready2.jpg"
+import read3 from "../utils/images/exaples/ready3.jpg"
+import icon1 from "../utils/images/icons/whatsApp.png"
+import icon2 from "../utils/images/icons/telegram.png"
+import icon3 from "../utils/images/icons/vk.png"
+import map from "../utils/images/exaples/map.png"
+import mail from "../utils/images/icons/mail.png"
+import hero3 from "../utils/images/hero3.png"
+import hero1 from "../utils/images/hero/hero1.png"
+import hero2 from "../utils/images/hero/hero2.png"
+import hero22 from "../utils/images/hero/her22.png"
+import art1img from "../utils/images/article/art1.png"
+import art2img from "../utils/images/article/art2.png"
+import art3img from "../utils/images/article/art3.png"
+import art4img from "../utils/images/article/art4.png"
+import art5img from "../utils/images/article/art5.png"
+import art6img from "../utils/images/article/art6.png"
+import artLogoImg from "../utils/images/article/artLogo.png"
+import us from "../utils/images/article/us.png"
+import bannerImg from "../utils/images/article/banner.png"
+import bannerBgImg from "../utils/images/article/bannerbg.png"
+import banner2Img from "../utils/images/article/banner2.png"
+import link from "../utils/images/icons/link.png"
 // ====== Assets ======
 
-export const logoImg = logo;
-export const bagIcon = bag;
-export const dressIcon = dress;
-export const locationIcon = location;
-export const switchUserIcon = switchUser;
-export const dress2Icon = dress2;
-export const bgHeroImg = bgHero;
-export const bgHero2Img = bgHero2;
-export const cat1 = cat1img;
-export const cat2 = cat2img;
-export const cat3 = cat3img;
-export const ex1 = sample1;
-export const ex2 = sample2;
-export const ex3 = sample3;
-export const ex4 = sample4;
-export const readyImg1 = read1;
-export const readyImg2 = read2;
-export const readyImg3 = read3;
-export const mapImg = map;
-export const hero3Img = hero3;
+export const linkIcon = link
+export const banner = bannerImg
+export const banner2 = banner2Img
+export const bannerBg = bannerBgImg
+export const artLogo = artLogoImg
+export const art1 = art1img
+export const art2 = art2img
+export const art3 = art3img
+export const art4 = art4img
+export const art5 = art5img
+export const art6 = art6img
+export const logoImg = logo
+export const bagIcon = bag
+export const dressIcon = dress
+export const locationIcon = location
+export const switchUserIcon = switchUser
+export const dress2Icon = dress2
+export const bgHeroImg = bgHero
+export const bgHero2Img = bgHero2
+export const cat1 = cat1img
+export const cat2 = cat2img
+export const cat3 = cat3img
+export const ex1 = sample1
+export const ex2 = sample2
+export const ex3 = sample3
+export const ex4 = sample4
+export const readyImg1 = read1
+export const readyImg2 = read2
+export const readyImg3 = read3
+export const mapImg = map
+export const hero3Img = hero3
+export const mailIcon = mail
+export const hero1Img = hero1
+export const hero2Img = hero2
+export const hero22Img = hero22
+export const usImg = us
 
 export const icons = [
-  { label: "wh", imageUrl:icon1, alt: "w" },
+  { label: "wh", imageUrl: icon1, alt: "w" },
   { label: "t", imageUrl: icon2, alt: "t" },
   { label: "vk", imageUrl: icon3, alt: "vk" },
 ]
 
-
 export const categoryTiles = [
-  { label: "Одежда", imageUrl:ex1, alt: "Одежда" },
+  { label: "Одежда", imageUrl: ex1, alt: "Одежда" },
   { label: "Обувь", imageUrl: ex2, alt: "Обувь" },
   { label: "Аксессуары", imageUrl: ex3, alt: "Аксессуары" },
   { label: "Сумки", imageUrl: ex3, alt: "Сумки" },
@@ -65,15 +95,24 @@ export const categoryTiles = [
   },
 ]
 export const rentalItems = [
-  { title: "Тренч looks", price: "7 900 ₽",img: cat1 },
-  { title: "Тренч looks", price: "7 900 ₽" ,img: cat2},
-  { title: "Тренч looks", price: "7 900 ₽" ,img: cat3},
+  { title: "Тренч looks", price: "7 900 ₽", img: cat1 },
+  { title: "Тренч looks", price: "7 900 ₽", img: cat2 },
+  { title: "Тренч looks", price: "7 900 ₽", img: cat3 },
 ]
 export const readyItems = [
-  { title: "ШУБА ИЗ ЭКО МЕХА", price: "7 900 ₽",img: readyImg1 },
-  { title: "ШУБА ИЗ ЭКО МЕХА", price: "7 900 ₽" ,img: readyImg2},
-  { title: "ШУБА ИЗ ЭКО МЕХА", price: "7 900 ₽" ,img: readyImg3},
+  { title: "ШУБА ИЗ ЭКО МЕХА", price: "7 900 ₽", img: readyImg1 },
+  { title: "ШУБА ИЗ ЭКО МЕХА", price: "7 900 ₽", img: readyImg2 },
+  { title: "ШУБА ИЗ ЭКО МЕХА", price: "7 900 ₽", img: readyImg3 },
 ]
+
+
+export const ourProjects = [
+  {  image: hero2Img },
+  {  image: hero2Img },
+  { id: 3, image: hero2Img },
+  { id: 4, image: hero2Img },
+  { id: 5, image: hero2Img },
+];
 
 export const features = [
   {
@@ -102,11 +141,75 @@ export const features = [
     subtitle: "образ в каталоге образов",
   },
 ]
-
+export const partnerSectionValues = [
+  {
+    title: "Мы смотрим на задачи через призму бизнеса, а не только технологий",
+    desc: "Наша цель — не «разработать и внедрить систему», а обеспечить рост: прибыли, масштабируемости, устойчивости.",
+  },
+  {
+    title: "Мы проектируем архитектуру, а не просто «пишем код»",
+    desc: "Любое решение — часть общей ИТ-экосистемы. Мы создаём связную архитектуру, а не набор несвязанных сервисов.",
+  },
+  {
+    title: "Мы работаем от стратегии, а не от ТЗ",
+    desc: "Начинаем с понимания бизнес-целей: где болит, куда вы хотите прийти, что мешает. Только потом — решения, технологии и команды.",
+  },
+  {
+    title: "Мы объединяем бизнес, ИТ и людей",
+    desc: "Трансформация — это не только про код и серверы. Это про вовлечённость, процессы, управление знаниями и культурой команд.",
+  },
+  {
+    title: "Мы отвечаем за результат, а не за «сдачу проекта»",
+    desc: "От аудита, дизайна до внедрения и сопровождения — мы остаёмся в партнёрстве, чтобы решение приносило эффект, а не просто «работало».",
+  },
+  {
+    title: "Мы говорим на языке финансов, а не только ИТ",
+    desc: "Все архитектурные решения привязаны к бизнес-метрикам: TCO, EBITDA, скорость вывода продуктов, сокращение yme-to-market."
+  },
+  {
+    title: "Команда с междисциплинарной экспертизой",
+    desc: "Мы объединяем руководителей, ИТ-архитекторов, инженеров, отраслевых экспертов и других специалистов для решения поставленных задач"
+  },
+  {
+    title: "Работаем в двух режимах адаптация или трансформация",
+    desc: "Эволюция без стресса — встроимся в систему. Прорыв — изменим процессы, сохранив управляемость и культуру."
+  },
+]
 export const navItems: NavItemT[] = [
-  { title: "Каталог", route: "Каталог" },
-  { title: "Пошив", route: "Пошив" },
-  { title: "Образы", route: "Образы" },
+  {
+    title: "Услуги",
+    route: "/services",
+    children: [
+      {
+        title: "Стратегический ИТ-консалтинг",
+        route: "/services/it-consulting",
+      },
+      {
+        title: "Аудит и оптимизация бизнес-процессов",
+        route: "/services/business-audit",
+      },
+      {
+        title: "Корпоративная автоматизация на базе платформы 1С",
+        route: "/services/1c-automation",
+      },
+      {
+        title: "Digital HR: построение ИТ-команд",
+        route: "/services/digital-hr",
+      },
+      {
+        title: "ИТ-архитектура, отказоустойчивость и интеграции",
+        route: "/services/it-architecture",
+      },
+      {
+        title: "Управление данными и аналитика (DWH/BI)",
+        route: "/services/data-analytics",
+      },
+    ],
+  },
+  { title: "Портфолио", route: "/portfolio" },
+  { title: "О компании", route: "/about" },
+  { title: "Новости", route: "/news" },
+  { title: "Контакты", route: "/contacts" },
 ]
 
 export const countries = [
@@ -206,7 +309,7 @@ export const adminInfo = {
   phone: "+9725858585",
   address: "Old City, Jerusalem, Israel",
   city: "Israel",
-  email: "sevan@gmail.com",
+  email: "sales@alttech-lab.ru",
 }
 
 // ====== Defaults & Timers ======
@@ -625,11 +728,3 @@ export const subscriptionPrices = {
   "6m": 8990,
   "12m": 14990,
 }
-
-
-
-
-
-
-
-

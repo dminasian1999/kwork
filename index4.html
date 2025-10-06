@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alt-Tech: Strategic IT Consulting</title>
+  <style>
+      /* Basic Reset and Variables */
+      :root {
+          --primary-color: #0056b3; /* A dark blue for tech/strategy */
+          --secondary-color: #007bff; /* A lighter blue for highlights */
+          --text-color: #333;
+          --background-color: #f8f9fa;
+          --card-background: #ffffff;
+          --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+          background-color: var(--background-color);
+          color: var(--text-color);
+          line-height: 1.6;
+      }
+      .container {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 20px;
+      }
+
+      /* Hero Section */
+      .hero {
+          background-color: var(--primary-color);
+          color: var(--card-background);
+          padding: 80px 0;
+          text-align: center;
+      }
+      .hero h1 {
+          font-size: 2.5em;
+          margin-bottom: 15px;
+      }
+      .hero p {
+          font-size: 1.2em;
+          margin-bottom: 30px;
+      }
+      .hero .cta-button {
+          background-color: #28a745; /* Green for a strong CTA */
+          color: white;
+          padding: 15px 30px;
+          text-decoration: none;
+          border-radius: 5px;
+          font-size: 1.1em;
+          font-weight: bold;
+          transition: background-color 0.3s;
+      }
+      .hero .cta-button:hover {
+          background-color: #218838;
+      }
+
+      /* Core Pillars Section */
+      .pillars-section {
+          padding: 60px 0;
+          text-align: center;
+      }
+      .pillars-section h2 {
+          font-size: 2em;
+          margin-bottom: 40px;
+          color: var(--primary-color);
+      }
+      .pillars-grid {
+          display: flex;
+          gap: 30px;
+          justify-content: center;
+      }
+      .pillar-card {
+          background-color: var(--card-background);
+          padding: 30px;
+          border-radius: 8px;
+          box-shadow: var(--shadow);
+          flex: 1;
+          max-width: 350px;
+          transition: transform 0.3s;
+      }
+      .pillar-card:hover {
+          transform: translateY(-5px);
+      }
+      .pillar-card h3 {
+          color: var(--secondary-color);
+          font-size: 1.4em;
+          margin-top: 0;
+          border-bottom: 2px solid var(--secondary-color);
+          padding-bottom: 10px;
+          margin-bottom: 15px;
+      }
+
+      /* Business Results Section */
+      .results-section {
+          background-color: #e9ecef;
+          padding: 60px 0;
+      }
+      .results-section h2 {
+          font-size: 2em;
+          margin-bottom: 40px;
+          text-align: center;
+          color: var(--primary-color);
+      }
+      .results-list {
+          list-style: none;
+          padding: 0;
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+          gap: 20px;
+      }
+      .results-list li {
+          background-color: var(--card-background);
+          padding: 20px;
+          border-left: 5px solid var(--secondary-color);
+          border-radius: 4px;
+          font-size: 1.1em;
+          font-weight: 500;
+          box-shadow: var(--shadow);
+      }
+
+      /* Responsive Design */
+      @media (max-width: 900px) {
+          .pillars-grid {
+              flex-direction: column;
+              align-items: center;
+          }
+          .pillar-card {
+              max-width: 90%;
+          }
+      }
+  </style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="container">
+    <h1>Strategic IT Consulting: Where IT Meets Business Goals</h1>
+    <p>We align your technology roadmap with your financial metrics (TCO, ROI, Budget Cycles) to deliver a financially justified digital strategy and platform for sustainable growth.</p>
+    <a href="#consultation" class="cta-button">Start Your Digital Maturity Audit</a>
+  </div>
+</header>
+
+<section class="pillars-section">
+  <div class="container">
+    <h2>Our 3 Key Strategic Directions</h2>
+    <div class="pillars-grid">
+
+      <div class="pillar-card">
+        <h3>1. Digital Maturity Assessment</h3>
+        <p>Audit your current IT infrastructure, identify critical dependencies, and pinpoint high-impact areas for immediate growth and optimization.</p>
+      </div>
+
+      <div class="pillar-card">
+        <h3>2. IT with a Business Focus</h3>
+        <p>Ensure every IT dollar spent directly contributes to core business processes, strategic objectives, and measurable operational efficiency.</p>
+      </div>
+
+      <div class="pillar-card">
+        <h3>3. Digital Transformation Strategy</h3>
+        <p>Develop a clear, actionable, and financially-sound roadmap for your company's full digital evolution and competitive future.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="results-section">
+  <div class="container">
+    <h2>The Tangible Results You Will Achieve</h2>
+    <ul class="results-list">
+      <li>Receive a **financially justified IT strategy**.</li>
+      <li>Achieve **optimization of the IT budget** and cost structure.</li>
+      <li>Establish **alignment of IT and Business** objectives.</li>
+      <li>Increase the **speed of change implementation**.</li>
+      <li>Build a digital loop **synchronized with business goals**.</li>
+      <li>Create a robust **platform for sustainable growth**.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="consultation" style="padding: 60px; text-align: center;">
+  <h2>Ready to Strategize?</h2>
+  <p>Book a discovery session with our CSO/CFO-focused consulting team.</p>
+</section>
+
+</body>
+</html>

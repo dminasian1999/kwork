@@ -1,28 +1,27 @@
 import React from "react"
-import Header from "./Header.tsx"
 import HeroSection from "./HeroSection.tsx"
 import FeaturesSection from "./FeaturesSection.tsx"
-import RentalCatalogSection from "./RentalCatalogSection.tsx"
 import TailoringSection from "./TailoringSection.tsx"
-import FooterSection from "./FooterSection.tsx"
-import Slideshow from "./Slideshow.tsx"
-import Stylish from "./Stylish.tsx"
-import ReadyCatalogSection from "./ReadyCatalogSection.tsx"
+import TestimonialsCarousel from "./TestimonialsCarousel.tsx"
 import MapLoc from "./MapLoc.tsx"
+import PartnerSection from "./PartnerSection.tsx"
+import WeeklyBestseller from "./WeeklyBestseller.tsx"
+import ArticlesCarousel from "./ArticlesCarousel.tsx"
 
 const HomePage = () => {
-
   return (
     <div className="">
       <main>
-        <Slideshow/>
-        {/*<HeroSection />*/}
+        {/*<Slideshow/>*/}
+        <HeroSection />
         <FeaturesSection />
-        <RentalCatalogSection />
+        <PartnerSection />
         <TailoringSection />
-        <Stylish/>
-        <ReadyCatalogSection/>
-        <MapLoc/>
+        <WeeklyBestseller />
+        <TestimonialsCarousel />
+        <MapLoc />
+
+        <ArticlesCarousel />
       </main>
     </div>
   )

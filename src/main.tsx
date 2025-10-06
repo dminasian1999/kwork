@@ -3,11 +3,12 @@ import { createRoot } from "react-dom/client"
 import { Provider } from "react-redux"
 import { store } from "./app/store"
 import { BrowserRouter } from "react-router-dom"
-import './index.css'
-import App from "./App.tsx"
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import "tailwindcss/index.css"
+import './index.css'
 
+import App from "./App.tsx"
 
 const container = document.getElementById("root")
 

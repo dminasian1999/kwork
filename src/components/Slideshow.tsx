@@ -23,55 +23,82 @@ const slides = [
 
 const Slideshow = () => {
   return (
-    <div id="carouselExampleCaptions" className="carousel slide">
-      <div className="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" className="active"
-                aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
-                aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
-                aria-label="Slide 3"></button>
+    <section className="container hero-section py-5">
+      <div className="row align-items-center">
+        <div className="col-md-6">
+            <span className="badge bg-light text-primary mb-3">
+              Бесплатная консультация
+            </span>
+          <h2 className="fw-bold mb-3">
+            Готовы построить ИТ-команду, которая реально работает?
+          </h2>
+          <p className="text-muted">
+            Мы проведем первичный аудит вашей ИТ-команды и покажем, где
+            теряются эффективность и деньги.
+          </p>
+
+          <form className="mt-4">
+            <div className="row g-3">
+              <div className="col-md-6">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Ваше имя"
+                />
+              </div>
+              <div className="col-md-6">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Название компании"
+                />
+              </div>
+              <div className="col-12">
+                <input
+                  type="email"
+                  className="form-control"
+                  placeholder="Ваш E-Mail"
+                />
+              </div>
+              <div className="col-12">
+                  <textarea
+                    className="form-control"
+                    rows={3}
+                    placeholder="Комментарий"
+                  ></textarea>
+              </div>
+            </div>
+
+            <div className="form-check mt-3">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                id="privacyCheck"
+              />
+              <label
+                className="form-check-label small text-muted"
+                htmlFor="privacyCheck"
+              >
+                Нажимая на кнопку, Вы соглашаетесь с{" "}
+                <a href="#">Политикой конфиденциальности</a>
+              </label>
+            </div>
+
+            <button type="button" className="btn btn-warning mt-3 px-4">
+              Отправить
+            </button>
+          </form>
+        </div>
+
+        <div className="col-md-6 text-center mt-4 mt-md-0">
+          <img
+            src="/laptop.png"
+            alt="Laptop preview"
+            className="img-fluid rounded shadow"
+          />
+        </div>
       </div>
-      <div className="carousel-inner " >
-        <div className="carousel-item active"  style={{maxHeight:"1050px"}}>
-          <img src={bgHeroImg} className="d-block w-100 h-100 object-fit-cover" alt="..." />
-          <div className="carousel-caption d-none d-md-block text-start top-50">
-            <div className={'myh1 '}>Стильная одежда для любого события!</div>
-            <div className={'text-break myText mt-3' +
-              ''}>Арендуйте модные наряды на свадьбу, вечеринку или фотосессию. Премиум стиль, доступный каждому.</div>
-            <div className="btn btn-light btn-lg text-uppercase  hero-btn rounded-0 mt-3">Посмотреть каталог</div>
-          </div>
-        </div>
-        <div className="carousel-item "  style={{maxHeight:"1050px"}}>
-          <img src={bgHeroImg} className="d-block w-100 h-100 object-fit-cover" alt="..." />
-          <div className="carousel-caption d-none d-md-block text-start top-50">
-            <div className={'myh1 '}>Стильная одежда для любого события!</div>
-            <div className={'text-break myText mt-3' +
-              ''}>Арендуйте модные наряды на свадьбу, вечеринку или фотосессию. Премиум стиль, доступный каждому.</div>
-            <div className="btn btn-light btn-lg text-uppercase  hero-btn rounded-0 mt-3">Посмотреть каталог</div>
-          </div>
-        </div>
-        <div className="carousel-item active"  style={{maxHeight:"1050px"}}>
-          <img src={bgHeroImg} className="d-block w-100 h-100 object-fit-cover" alt="..." />
-          <div className="carousel-caption d-none d-md-block text-start top-50">
-            <div className={'myh1 '}>Стильная одежда для любого события!</div>
-            <div className={'text-break myText mt-3' +
-              ''}>Арендуйте модные наряды на свадьбу, вечеринку или фотосессию. Премиум стиль, доступный каждому.</div>
-            <div className="btn btn-light btn-lg text-uppercase  hero-btn rounded-0 mt-3">Посмотреть каталог</div>
-          </div>
-        </div>
-      </div>
-      <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
-              data-bs-slide="prev">
-        <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span className="visually-hidden">Previous</span>
-      </button>
-      <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
-              data-bs-slide="next">
-        <span className="carousel-control-next-icon" aria-hidden="true"></span>
-        <span className="visually-hidden">Next</span>
-      </button>
-    </div>
+    </section>
 
   );
 };

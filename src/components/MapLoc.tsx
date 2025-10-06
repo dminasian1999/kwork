@@ -1,59 +1,48 @@
-import React from "react"
-import { ex4, icons, mapImg } from "../utils/constants.ts"
+import React from "react";
+import { banner2, bannerBg } from "../utils/constants.ts";
+import { Link } from "react-router-dom"
 
-const MapLoc = () => (
-  <div className=" " style={{ backgroundColor: "#39444A" }}>
-    <div className="container ">
-      <div className="row text-start">
-        <div className="col-md-7">
-          <div className=" stylist-block  text-start py-5">
-            <div className="texe">
-              <h2 className="text-white fw-medium mb-3"> Свяжитесь с нами</h2>
+const MapLoc = () => {
+  return (
+    <section
+      id="partners"
+      className="max-w-7xl mx-auto flex flex-col lg:flex-row items-stretch sm:px-6 lg:px-8"
+      style={{
+        backgroundImage: `url(${bannerBg})`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        minHeight: "600px",
+      }}
+    >
+      {/* Левый блок с текстом */}
 
-              <p
-                className="text-white-50 mb-4 "
-                style={{ maxWidth: "400px", fontSize: "20px" }}
-              >
-                Есть вопросы или хотите примерить наряд? Напишите нам или
-                приходите в шоу-рум.{" "}
-              </p>
-              <div className="d-flex gap-5  alig-items-center">
-                <div className="infos text-light fw-lighter  d-flex flex-column gap-3" >
-                  <div className="">Адрес:</div>
-                  <div className="">Телефон:</div>
-                  <div className="">Email:</div>
-                  <div className="">Соцсети:</div>
-                </div>
-                <div className="infos text-light  d-flex flex-column gap-3">
-                  <div className="">г. Москва, ул. Примерная, 10</div>
-                  <div className="">+7 (900) 400 - 00 - 00</div>
-                  <div className="">info@mail.ru</div>
-                  <div className="fa">
-                    {icons.map((i, index) => (
-                      <img className={'img h-75 px-2'} key={index} src={i.imageUrl} alt={i.label} />
-                    ))}
-                  </div>
+      <div className="lg:w-1/2 bg-white/75 backdrop-blur-md p-8 flex flex-col justify-center align-items-center">
+        <div className="badge bg-primary-subtle text-primary fw-lighter mb-4">Покажем пути к росту</div>
 
-                </div>
-              </div>
+        <div className="text-2xl fw-bold h1 mb-2 text-center">Ваша ИТ-среда — точка роста или тормоз?</div>
+        <p className=" text-center mt-3">
+          Получите индивидуальный разбор архитектуры, интеграций и процессов —
+          покажем, как усилить масштабируемость, отказоустойчивость и управляемость.
+        </p>
+        <Link
+          to="/contact"
+          className="fw-lighter text-decoration-none hidden sm:inline-block px-6 py-3 bg-alt-cta text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300"
+        >
+          Получить консультацию        </Link>
 
-            </div>
-          </div>
-        </div>
-        <div className="col-md-5" >
-          <div className="bg-light     text-start  bgl" >
-            <div className="-5 " style={{ height: "450px" ,backgroundColor: "#39444A" }}>
-              <img
-                className={"object-fit-cover h-100 w-100 mt-5" + " "}
-                src={mapImg}
-                alt={"hero"}
-              />
-            </div>
-          </div>
-        </div>
       </div>
-    </div>
-  </div>
-)
 
-export default MapLoc
+      {/* Правый блок с изображением */}
+      <div className="lg:w-1/2 h-96 lg:h-auto overflow-hidden">
+        <img
+          src={banner2}
+          alt="bg"
+          className="w-full h-full object-cover"
+        />
+      </div>
+
+    </section>
+  );
+};
+
+export default MapLoc;
