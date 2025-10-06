@@ -38,9 +38,7 @@ const CONTACT_INFO = {
 
 // --- Вспомогательные Компоненты ---
 
-/**
- * Кнопка CTA для записи/звонка.
- */
+// @ts-ignore
 const CtaButton = ({ text, icon: Icon, onClick, href, className = '' }) => (
   <a
     href={href}
@@ -58,9 +56,7 @@ const CtaButton = ({ text, icon: Icon, onClick, href, className = '' }) => (
   </a>
 );
 
-/**
- * Карточка услуги.
- */
+// @ts-ignore
 const ServiceCard = ({ title, description, icon: Icon }) => (
   <div className="p-6 bg-white rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
     <Icon className="w-8 h-8 text-orange-600 mb-4" />
@@ -69,9 +65,7 @@ const ServiceCard = ({ title, description, icon: Icon }) => (
   </div>
 );
 
-/**
- * Секция с общим заголовком.
- */
+// @ts-ignore
 const Section = ({ id, title, children, className = '' }) => (
   <section id={id} className={`py-12 md:py-16 ${className}`}>
     <div className="container mx-auto px-4 max-w-7xl">
@@ -84,20 +78,18 @@ const Section = ({ id, title, children, className = '' }) => (
 );
 
 // --- Страницы ---
+// @ts-ignore
 
-/**
- * Страница Контакты и Форма Заявки
- */
 const ContactForm = ({ setActivePage }) => {
   const [formData, setFormData] = useState({ name: '', phone: '', service: '', comment: '' });
   const [status, setStatus] = useState(''); // 'idle', 'loading', 'success', 'error'
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-    if (status === 'error') setStatus('idle'); // Сброс ошибки при начале ввода
-  };
+  const handleChange = (e: { target: { name: any; value: any } }) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+    if (status === "error") setStatus("idle") // Сброс ошибки при начале ввода
+  }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     if (!formData.phone) {
       setStatus('error');
@@ -120,34 +112,51 @@ const ContactForm = ({ setActivePage }) => {
     error: '⚠️ Пожалуйста, укажите ваш номер телефона. Это обязательное поле.',
   };
 
+  // @ts-ignore
   return (
     <Section id="contacts" title="Контакты и Запись">
       <div className="grid md:grid-cols-2 gap-10">
         {/* Контактная информация */}
         <div>
-          <h3 className="text-2xl font-semibold text-gray-800 mb-4">Наши данные</h3>
+          <h3 className="text-2xl font-semibold text-gray-800 mb-4">
+            Наши данные
+          </h3>
           <p className="flex items-center space-x-3 text-gray-600 mb-3">
             <MapPin className="w-5 h-5 text-orange-600 flex-shrink-0" />
             <span>{CONTACT_INFO.address}</span>
           </p>
           <p className="flex items-center space-x-3 text-gray-600 mb-3">
             <Phone className="w-5 h-5 text-orange-600 flex-shrink-0" />
-            <a href={`tel:${CONTACT_INFO.phone1}`} className="text-blue-600 hover:underline">{CONTACT_INFO.phone1}</a>
+            <a
+              href={`tel:${CONTACT_INFO.phone1}`}
+              className="text-blue-600 hover:underline"
+            >
+              {CONTACT_INFO.phone1}
+            </a>
           </p>
           <p className="flex items-center space-x-3 text-gray-600 mb-3">
             <Phone className="w-5 h-5 text-orange-600 flex-shrink-0" />
-            <a href={`tel:${CONTACT_INFO.phone2}`} className="text-blue-600 hover:underline">{CONTACT_INFO.phone2}</a>
+            <a
+              href={`tel:${CONTACT_INFO.phone2}`}
+              className="text-blue-600 hover:underline"
+            >
+              {CONTACT_INFO.phone2}
+            </a>
           </p>
           <p className="flex items-center space-x-3 text-gray-600 mb-6">
             <Mail className="w-5 h-5 text-orange-600 flex-shrink-0" />
-            <a href={`mailto:${CONTACT_INFO.email}`} className="text-blue-600 hover:underline">{CONTACT_INFO.email}</a>
+            <a
+              href={`mailto:${CONTACT_INFO.email}`}
+              className="text-blue-600 hover:underline"
+            >
+              {CONTACT_INFO.email}
+            </a>
           </p>
 
           <div className="bg-gray-100 p-4 rounded-xl shadow-inner">
             <h4 className="font-bold mb-2">На карте:</h4>
             {/* Имитация карты с placeholder-изображением */}
             <div className="w-full h-48 bg-gray-300 rounded-lg flex items-center justify-center text-gray-500 text-sm">
-
               <p className="p-2">Местоположение автосервиса на карте</p>
             </div>
           </div>
@@ -155,15 +164,23 @@ const ContactForm = ({ setActivePage }) => {
 
         {/* Форма заявки */}
         <div className="bg-white p-6 rounded-xl shadow-2xl border border-orange-100">
-          <h3 className="text-2xl font-semibold text-gray-800 mb-5">Записаться на ремонт</h3>
-
-          <div className={`p-3 mb-4 rounded-lg text-sm font-medium ${status === 'success' ? 'bg-green-100 text-green-700' : status === 'error' ? 'bg-red-100 text-red-700' : 'bg-blue-50 text-blue-600'}`}>
+          <h3 className="text-2xl font-semibold text-gray-800 mb-5">
+            Записаться на ремонт
+          </h3>
+          <div
+            className={`p-3 mb-4 rounded-lg text-sm font-medium ${status === "success" ? "bg-green-100 text-green-700" : status === "error" ? "bg-red-100 text-red-700" : "bg-blue-50 text-blue-600"}`}
+          >
             {statusMessage[status]}
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700">Ваше имя</label>
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Ваше имя
+              </label>
               <input
                 type="text"
                 id="name"
@@ -175,7 +192,12 @@ const ContactForm = ({ setActivePage }) => {
               />
             </div>
             <div>
-              <label htmlFor="phone" className="block text-sm font-medium text-gray-700">Телефон *</label>
+              <label
+                htmlFor="phone"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Телефон *
+              </label>
               <input
                 type="tel"
                 id="phone"
@@ -184,11 +206,16 @@ const ContactForm = ({ setActivePage }) => {
                 onChange={handleChange}
                 placeholder="+7 (XXX) XXX-XX-XX"
                 required
-                className={`mt-1 block w-full border ${formData.phone || status !== 'error' ? 'border-gray-300' : 'border-red-500'} rounded-lg shadow-sm p-3 focus:border-orange-500 focus:ring-orange-500`}
+                className={`mt-1 block w-full border ${formData.phone || status !== "error" ? "border-gray-300" : "border-red-500"} rounded-lg shadow-sm p-3 focus:border-orange-500 focus:ring-orange-500`}
               />
             </div>
             <div>
-              <label htmlFor="service" className="block text-sm font-medium text-gray-700">Выберите услугу</label>
+              <label
+                htmlFor="service"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Выберите услугу
+              </label>
               <select
                 id="service"
                 name="service"
@@ -198,16 +225,23 @@ const ContactForm = ({ setActivePage }) => {
               >
                 <option value="">-- Выберите из списка --</option>
                 {SERVICES_DATA.map(s => (
-                  <option key={s.id} value={s.title}>{s.title}</option>
+                  <option key={s.id} value={s.title}>
+                    {s.title}
+                  </option>
                 ))}
               </select>
             </div>
             <div>
-              <label htmlFor="comment" className="block text-sm font-medium text-gray-700">Комментарий (описание проблемы)</label>
+              <label
+                htmlFor="comment"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Комментарий (описание проблемы)
+              </label>
               <textarea
                 id="comment"
                 name="comment"
-                rows="3"
+                rows={3}
                 value={formData.comment}
                 onChange={handleChange}
                 placeholder="Например: Стук в передней подвеске при повороте"
@@ -215,16 +249,17 @@ const ContactForm = ({ setActivePage }) => {
               ></textarea>
             </div>
             <CtaButton
-              text={status === 'loading' ? 'Отправка...' : 'Отправить заявку'}
-              type="submit"
+              text={status === "loading" ? "Отправка..." : "Отправить заявку"}
               className="w-full"
-              disabled={status === 'loading'}
+              icon={undefined}
+              onClick={undefined}
+              href={undefined}
             />
           </form>
         </div>
       </div>
     </Section>
-  );
+  )
 };
 
 /**
@@ -279,7 +314,6 @@ const AboutPage = () => (
               src="https://placehold.co/600x400/0F172A/ffffff?text=Фото+нашего+автосервиса"
               alt="Автосервис"
               className="w-full h-auto object-cover"
-              onError={(e) => { e.target.onerror = null; e.target.src = "https://placehold.co/600x400/0F172A/ffffff?text=Наш+Автосервис" }}
             />
           </div>
         </div>
@@ -319,16 +353,16 @@ const ServicesPage = () => (
     <div className="text-center mt-10">
       <CtaButton
         text="Посмотреть Прайс-лист"
-        onClick={() => window.location.hash = '#/price'} // Используем хэш для навигации в SPA
+        onClick={() => (window.location.hash = "#/price")} // Используем хэш для навигации в SPA
         className="inline-flex"
+        icon={undefined}
+        href={undefined}
       />
     </div>
   </Section>
-);
+)
 
-/**
- * Главная Страница
- */
+// @ts-ignore
 const HomePage = ({ setActivePage }) => (
   <>
     {/* Герой-секция (CTA) */}
@@ -344,27 +378,34 @@ const HomePage = ({ setActivePage }) => (
         <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
           <CtaButton
             text="Записаться онлайн"
-            onClick={() => setActivePage('contacts')}
+            onClick={() => setActivePage("contacts")}
             className="bg-orange-600 hover:bg-orange-700"
+            icon={undefined}
+            href={undefined}
           />
           <CtaButton
             text="Позвонить нам"
             href={`tel:${CONTACT_INFO.phone1}`}
             icon={Phone}
             className="bg-gray-700 hover:bg-gray-600"
+            onClick={undefined}
           />
         </div>
       </div>
     </div>
 
     {/* Секция Услуги (3-6 плиток) */}
-    <Section id="home-services" title="Наши основные услуги" className="bg-gray-50">
+    <Section
+      id="home-services"
+      title="Наши основные услуги"
+      className="bg-gray-50"
+    >
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {SERVICES_DATA.slice(0, 4).map(service => (
           <ServiceCard
             key={service.id}
             title={service.title}
-            description={service.description.substring(0, 60) + '...'}
+            description={service.description.substring(0, 60) + "..."}
             icon={service.icon}
           />
         ))}
@@ -372,8 +413,10 @@ const HomePage = ({ setActivePage }) => (
       <div className="text-center mt-8">
         <CtaButton
           text="Посмотреть все услуги"
-          onClick={() => setActivePage('services')}
+          onClick={() => setActivePage("services")}
           className="bg-blue-600 hover:bg-blue-700"
+          icon={undefined}
+          href={undefined}
         />
       </div>
     </Section>
@@ -382,7 +425,10 @@ const HomePage = ({ setActivePage }) => (
     <Section id="advantages" title="Почему выбирают нас">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
         {ADVANTAGES_DATA.map((adv, index) => (
-          <div key={index} className="p-6 bg-white rounded-xl shadow-lg border-t-4 border-orange-600 transition duration-300 hover:shadow-2xl">
+          <div
+            key={index}
+            className="p-6 bg-white rounded-xl shadow-lg border-t-4 border-orange-600 transition duration-300 hover:shadow-2xl"
+          >
             <adv.icon className="w-10 h-10 text-orange-600 mx-auto mb-4" />
             <p className="text-lg font-medium text-gray-700">{adv.text}</p>
           </div>
@@ -409,21 +455,25 @@ const HomePage = ({ setActivePage }) => (
         <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
           <CtaButton
             text="Записаться сейчас"
-            onClick={() => setActivePage('contacts')}
+            onClick={() => setActivePage("contacts")}
             className="bg-white text-orange-600 hover:bg-gray-100"
+            icon={undefined}
+            href={undefined}
           />
           <CtaButton
             text="Позвонить"
             href={`tel:${CONTACT_INFO.phone1}`}
             icon={Phone}
             className="bg-gray-700 hover:bg-gray-600"
+            onClick={undefined}
           />
         </div>
       </div>
     </div>
   </>
-);
+)
 
+// @ts-ignore
 const PhotoPlaceholder = ({ text }) => (
   <div className="relative overflow-hidden rounded-xl shadow-md h-32 md:h-48 group">
 
@@ -431,7 +481,6 @@ const PhotoPlaceholder = ({ text }) => (
       src={`https://placehold.co/400x300/334155/ffffff?text=${text.replace(' ', '+')}`}
       alt={text}
       className="w-full h-full object-cover transition duration-300 group-hover:scale-105"
-      onError={(e) => { e.target.onerror = null; e.target.src = "https://placehold.co/400x300/334155/ffffff?text=Работа" }}
     />
     <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
       <p className="text-white text-lg font-bold">{text}</p>
@@ -459,11 +508,11 @@ const App = () => {
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, [getPageFromHash]);
 
-  const navigate = (page) => {
-    window.location.hash = `/${page}`;
-    setActivePage(page);
-    setIsMenuOpen(false);
-  };
+  const navigate = (page: React.SetStateAction<string>) => {
+    window.location.hash = `/${page}`
+    setActivePage(page)
+    setIsMenuOpen(false)
+  }
 
   const renderPage = () => {
     switch (activePage) {
