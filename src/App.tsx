@@ -1,383 +1,612 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Menu, X, Car, Wrench, Gauge, Hammer, Shield, Clock, Handshake, MapPin, Phone, Mail, User, Info, DollarSign, ListOrdered, ClipboardList } from 'lucide-react';
 
-// --- SVG Icons --- //
-// Using inline SVGs to avoid external dependencies and ensure pixel-perfect rendering.
+// --- Данные для сайта ---
+const SITE_TITLE = 'Автосервис "Драйв"';
+const TAGLINE = 'Надежный ремонт и обслуживание вашего автомобиля';
 
-const LocationIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-  </svg>
-);
+const SERVICES_DATA = [
+  { id: '1', title: 'Диагностика двигателя', icon: Wrench, description: 'Полная компьютерная диагностика и профессиональный ремонт двигателей всех марок.' },
+  { id: '2', title: 'Ремонт подвески', icon: Car, description: 'Восстановление и замена элементов ходовой части для комфорта и безопасности.' },
+  { id: '3', title: 'Техническое обслуживание (ТО)', icon: Gauge, description: 'Плановая замена масла, фильтров и проверка всех систем по регламенту.' },
+  { id: '4', title: 'Кузовной ремонт', icon: Hammer, description: 'Устранение вмятин, покраска и восстановление геометрии кузова после ДТП.' },
+  { id: '5', title: 'Шиномонтаж и балансировка', icon: ListOrdered, description: 'Сезонная смена шин, ремонт проколов, точная балансировка колес.' },
+  { id: '6', title: 'Заправка и ремонт кондиционеров', icon: ClipboardList, description: 'Проверка герметичности, заправка фреоном и ремонт климатических систем.' },
+];
 
-const PhoneIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-  </svg>
-);
+const ADVANTAGES_DATA = [
+  { icon: Shield, text: 'Гарантия 1 год на все виды работ и запчасти.' },
+  { icon: Clock, text: 'Быстрый ремонт — большинство работ за 2-4 часа.' },
+  { icon: Handshake, text: 'Прозрачные цены без скрытых платежей. Согласование сметы.' },
+];
 
-const SearchIcon = () => (
-  <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-  </svg>
-);
+const PRICE_LIST_DATA = [
+  { service: 'Замена масла (с фильтром)', price: 'от 800 ₽' },
+  { service: 'Компьютерная диагностика', price: 'от 1000 ₽' },
+  { service: 'Диагностика ходовой части', price: 'от 500 ₽' },
+  { service: 'Ремонт тормозной системы', price: 'от 1500 ₽' },
+  { service: 'Замена свечей зажигания', price: 'от 400 ₽' },
+  { service: 'Полный шиномонтаж (R16)', price: 'от 1800 ₽' },
+];
 
-const MenuIcon = () => (
-  <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
-  </svg>
-);
-
-const EyeIcon = () => (
-  <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-
-  </svg>
-);
-
-// @ts-ignore
-const SocialIcon = ({ path }) => (
-  <svg className="w-6 h-6 fill-current text-gray-500 hover:text-gray-800" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path d={path} />
-  </svg>
-);
-
-// --- Components --- //
-
-const Header = () => {
-  return (
-    <header className="bg-[#F7F5F2] border-b border-gray-200">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Top Header */}
-        <div className="flex flex-wrap justify-between items-center py-3">
-          <div className="flex items-center">
-            <div className="flex items-center mr-8">
-              <div className="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center text-2xl font-bold text-gray-600 mr-2">а</div>
-              <div>
-                <p className="font-semibold text-gray-800 text-sm">аллея med</p>
-                <p className="font-semibold text-gray-800 text-sm">аллея красоты</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex flex-wrap items-center mt-4 sm:mt-0">
-            <div className="flex items-start mr-6 text-sm">
-              <LocationIcon />
-              <div>
-                <p className="text-gray-800">ул. Некрасова, д. 45</p>
-                <p className="text-gray-500">ул. Семьи Шамшиных, 90/5, офис 11</p>
-              </div>
-            </div>
-            <div className="flex items-start text-sm">
-              <PhoneIcon />
-              <div>
-                <p className="text-gray-800 font-semibold">+7(383) 310-10-02</p>
-                <p className="text-gray-500 underline cursor-pointer">Перезвонить мне</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex items-center space-x-6 mt-4 sm:mt-0">
-            <button className="bg-[#8B7160] text-white py-2 px-6 rounded-lg text-sm">Записаться</button>
-            <div className="flex space-x-2">
-              <div className="w-8 h-8 bg-gray-200 rounded-full"></div>
-              <div className="w-8 h-8 bg-gray-200 rounded-full"></div>
-              <div className="w-8 h-8 bg-gray-200 rounded-full"></div>
-            </div>
-          </div>
-        </div>
-
-        {/* Main Navigation */}
-        <nav className="flex justify-between items-center py-4 text-sm">
-          <div className="hidden md:flex space-x-8 text-gray-700">
-            <a href="#" className="hover:text-black">Услуги</a>
-            <a href="#" className="hover:text-black">Цены</a>
-            <a href="#" className="hover:text-black">Контакты</a>
-            <a href="#" className="hover:text-black">Акции</a>
-            <a href="#" className="hover:text-black">О центре</a>
-            <a href="#" className="hover:text-black">Отзывы</a>
-            <a href="#" className="hover:text-black">Специалисты</a>
-            <a href="#" className="hover:text-black">Статьи</a>
-          </div>
-          <div className="flex items-center space-x-4">
-            <SearchIcon />
-            <MenuIcon />
-            <EyeIcon />
-          </div>
-        </nav>
-      </div>
-    </header>
-  );
+const CONTACT_INFO = {
+  address: 'г. Вашгород, ул. Автомобилистов, 10',
+  phone1: '+7 (495) 123-45-67',
+  phone2: '+7 (903) 987-65-43',
+  email: 'info@autoservice-drive.ru',
 };
 
-const HeroSection = () => {
-  return (
-    <div className="text-center py-20 md:py-32 bg-[#F7F5F2]">
-      <h1 className="text-5xl md:text-7xl font-light text-gray-800">Аллея красоты х Москвичка</h1>
-      <p className="mt-6 text-xl text-gray-600">Когда вкус и красота встречаются</p>
+// --- Вспомогательные Компоненты ---
+
+/**
+ * Кнопка CTA для записи/звонка.
+ */
+const CtaButton = ({ text, icon: Icon, onClick, href, className = '' }) => (
+  <a
+    href={href}
+    onClick={onClick}
+    className={`
+      flex items-center justify-center space-x-2 px-6 py-3 text-lg font-semibold
+      bg-orange-600 text-white rounded-xl shadow-lg hover:bg-orange-700
+      transition duration-300 ease-in-out transform hover:scale-[1.02]
+      focus:outline-none focus:ring-4 focus:ring-orange-500/50
+      ${className}
+    `}
+  >
+    {Icon && <Icon className="w-5 h-5" />}
+    <span>{text}</span>
+  </a>
+);
+
+/**
+ * Карточка услуги.
+ */
+const ServiceCard = ({ title, description, icon: Icon }) => (
+  <div className="p-6 bg-white rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
+    <Icon className="w-8 h-8 text-orange-600 mb-4" />
+    <h3 className="text-xl font-bold text-gray-800 mb-2">{title}</h3>
+    <p className="text-gray-600">{description}</p>
+  </div>
+);
+
+/**
+ * Секция с общим заголовком.
+ */
+const Section = ({ id, title, children, className = '' }) => (
+  <section id={id} className={`py-12 md:py-16 ${className}`}>
+    <div className="container mx-auto px-4 max-w-7xl">
+      <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 text-center mb-10">
+        {title}
+      </h2>
+      {children}
     </div>
-  );
-};
+  </section>
+);
 
-const AboutSection = () => {
-  return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
-      <h2 className="text-4xl md:text-5xl font-light text-gray-800 mb-6">Объединяем <span className="font-normal">лучшее</span> для Вас</h2>
-      <p className="text-gray-600 max-w-3xl">
-        Мы объединили гастробар «Москвичка» и клиники «Аллея красоты» и «Аллея Мед», чтобы
-        подарить гостям больше, чем просто атмосферу и сервис. На одной странице — всё о нашем
-        совместном проекте: от особых предложений до подарков и уникальных активностей
-      </p>
-    </div>
-  );
-};
+// --- Страницы ---
 
-const PartnersSection = () => {
+/**
+ * Страница Контакты и Форма Заявки
+ */
+const ContactForm = ({ setActivePage }) => {
+  const [formData, setFormData] = useState({ name: '', phone: '', service: '', comment: '' });
+  const [status, setStatus] = useState(''); // 'idle', 'loading', 'success', 'error'
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (status === 'error') setStatus('idle'); // Сброс ошибки при начале ввода
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!formData.phone) {
+      setStatus('error');
+      return;
+    }
+    setStatus('loading');
+
+    // Имитация отправки формы (задержка 1.5 секунды)
+    console.log('Отправка данных формы:', formData);
+    setTimeout(() => {
+      setStatus('success');
+      setFormData({ name: '', phone: '', service: '', comment: '' }); // Очистка формы
+    }, 1500);
+  };
+
+  const statusMessage = {
+    idle: 'Оставьте заявку, и мы свяжемся с вами в течение 10 минут.',
+    loading: 'Отправка заявки...',
+    success: '✅ Заявка успешно отправлена! Ожидайте звонка.',
+    error: '⚠️ Пожалуйста, укажите ваш номер телефона. Это обязательное поле.',
+  };
+
   return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
-      <h2 className="text-4xl md:text-5xl font-light text-gray-800 mb-12">О партнерах</h2>
-      <div className="grid md:grid-cols-2 gap-8">
-        <div className="border border-blue-300 p-1">
-          <div className="bg-gray-200 h-80 w-full mb-6">
-            <img src="https://placehold.co/600x400/d1bfa7/FFFFFF?text=Team+Photo" alt="Аллея Красоты" className="w-full h-full object-cover"/>
-          </div>
-          <h3 className="text-2xl font-light mb-4">Аллея Красоты х Аллея Мед</h3>
-          <p className="text-gray-600">
-            Сеть клиник, где соединяются медицина, эстетика и забота. Современные технологии, опытные специалисты и широкий спектр услуг для вашей красоты и здоровья.
+    <Section id="contacts" title="Контакты и Запись">
+      <div className="grid md:grid-cols-2 gap-10">
+        {/* Контактная информация */}
+        <div>
+          <h3 className="text-2xl font-semibold text-gray-800 mb-4">Наши данные</h3>
+          <p className="flex items-center space-x-3 text-gray-600 mb-3">
+            <MapPin className="w-5 h-5 text-orange-600 flex-shrink-0" />
+            <span>{CONTACT_INFO.address}</span>
           </p>
-        </div>
-        <div className="border border-blue-300 p-1">
-          <div className="bg-gray-200 h-80 w-full mb-6">
-            <img src="https://placehold.co/600x400/333333/FFFFFF?text=Moskvichka" alt="Гастробар Москвичка" className="w-full h-full object-cover"/>
-          </div>
-          <h3 className="text-2xl font-light mb-4">Гастробар «Москвичка»</h3>
-          <p className="text-gray-600">
-            Атмосферное место с аутентичным уютом, авторской гастрономией, искусными коктейлями и уютной московской подачей. Здесь ценят вкус, настроение и стильный отдых.
+          <p className="flex items-center space-x-3 text-gray-600 mb-3">
+            <Phone className="w-5 h-5 text-orange-600 flex-shrink-0" />
+            <a href={`tel:${CONTACT_INFO.phone1}`} className="text-blue-600 hover:underline">{CONTACT_INFO.phone1}</a>
           </p>
-        </div>
-      </div>
-    </div>
-  );
-}
+          <p className="flex items-center space-x-3 text-gray-600 mb-3">
+            <Phone className="w-5 h-5 text-orange-600 flex-shrink-0" />
+            <a href={`tel:${CONTACT_INFO.phone2}`} className="text-blue-600 hover:underline">{CONTACT_INFO.phone2}</a>
+          </p>
+          <p className="flex items-center space-x-3 text-gray-600 mb-6">
+            <Mail className="w-5 h-5 text-orange-600 flex-shrink-0" />
+            <a href={`mailto:${CONTACT_INFO.email}`} className="text-blue-600 hover:underline">{CONTACT_INFO.email}</a>
+          </p>
 
-const BenefitsSection = () => {
-  return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
-      <h2 className="text-4xl md:text-5xl font-light text-gray-800 mb-12">Что вы получаете</h2>
-      <div className="grid md:grid-cols-3 gap-12 mb-12">
-        <div>
-          <h3 className="text-2xl font-normal mb-4">Скидка 10%</h3>
-          <p className="text-gray-600">По промокоду <span className="font-semibold">«Москвичка»</span> на все услуги в клиниках «Аллея красоты» и «Аллея Мед». Действует до конца года</p>
-        </div>
-        <div>
-          <h3 className="text-2xl font-normal mb-4">Именинники и гости</h3>
-          <p className="text-gray-600">От гастробара получают <span className="font-semibold">подарочный сертификат</span> в «Москвичке»</p>
-        </div>
-        <div>
-          <h3 className="text-2xl font-normal mb-4">Специальный «Коктейль красоты»</h3>
-          <p className="text-gray-600">Закажите один и получите сертификат на услуги в «Аллее красоты» или «Аллее Мед»</p>
-        </div>
-      </div>
-      <div className="grid md:grid-cols-3 gap-4">
-        <div className="bg-gray-300 h-64 border border-blue-300"><img src="https://placehold.co/400x300/a89280/FFFFFF?text=%" alt="Discount" className="w-full h-full object-cover"/></div>
-        <div className="bg-gray-300 h-64 border border-blue-300"><img src="https://placehold.co/400x300/333333/FFFFFF?text=Lounge" alt="Lounge" className="w-full h-full object-cover"/></div>
-        <div className="bg-gray-300 h-64 border border-blue-300"><img src="https://placehold.co/400x300/f0e6d4/FFFFFF?text=Cocktail" alt="Cocktail" className="w-full h-full object-cover"/></div>
-      </div>
-    </div>
-  )
-}
+          <div className="bg-gray-100 p-4 rounded-xl shadow-inner">
+            <h4 className="font-bold mb-2">На карте:</h4>
+            {/* Имитация карты с placeholder-изображением */}
+            <div className="w-full h-48 bg-gray-300 rounded-lg flex items-center justify-center text-gray-500 text-sm">
 
-const HowItWorksSection = () => {
-  return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
-      <h2 className="text-4xl md:text-5xl font-light text-gray-800 mb-6">Как это работает?</h2>
-      <p className="text-gray-600 text-lg">Просто при визите назовите промокод <span className="font-semibold">«Москвичка»</span> — и скидка ваша</p>
-    </div>
-  )
-}
-
-const DetailsSection = () => {
-  return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 border-t border-gray-200">
-      <h2 className="text-4xl md:text-5xl font-light text-gray-800 mb-12">Подробная информация</h2>
-      <div className="grid md:grid-cols-2 gap-8">
-        <div>
-          <p className="font-semibold mb-8">Гастробар «Москвичка»</p>
-          <div className="flex items-start mb-6">
-            <LocationIcon />
-            <div>
-              <p className="font-semibold">ЖК Алмонд, Чаплыгина 39</p>
-              <p className="text-gray-500">пн-вс 12:00 - 24:00</p>
+              <p className="p-2">Местоположение автосервиса на карте</p>
             </div>
           </div>
-          <div className="flex items-center mb-8">
-            <PhoneIcon />
-            <p className="font-semibold">+7 (929)-389-04-55</p>
-            <div className="flex space-x-2 ml-4">
-              <div className="w-8 h-8 bg-gray-200 rounded-full"></div>
-              <div className="w-8 h-8 bg-gray-200 rounded-full"></div>
-              <div className="w-8 h-8 bg-gray-200 rounded-full"></div>
-            </div>
-          </div>
-          <button className="bg-[#8B7160] hover:bg-[#7a6252] text-white py-3 px-8 rounded-lg">Узнать больше о меню «Москвички»</button>
         </div>
-        <div>
-          <p className="font-semibold mb-8">Аллея Красоты/Аллея Мед</p>
-          <div className="flex items-start mb-6">
-            <LocationIcon />
+
+        {/* Форма заявки */}
+        <div className="bg-white p-6 rounded-xl shadow-2xl border border-orange-100">
+          <h3 className="text-2xl font-semibold text-gray-800 mb-5">Записаться на ремонт</h3>
+
+          <div className={`p-3 mb-4 rounded-lg text-sm font-medium ${status === 'success' ? 'bg-green-100 text-green-700' : status === 'error' ? 'bg-red-100 text-red-700' : 'bg-blue-50 text-blue-600'}`}>
+            {statusMessage[status]}
+          </div>
+
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <p className="font-semibold">ул. Семьи Шамшиных, 90/5, офис 11</p>
-              <p className="text-gray-500">пн-пт 10:00 - 20:00, сб-вс 10:00 - 18:00</p>
+              <label htmlFor="name" className="block text-sm font-medium text-gray-700">Ваше имя</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                placeholder="Иван"
+                className="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm p-3 focus:border-orange-500 focus:ring-orange-500"
+              />
             </div>
-          </div>
-          <div className="flex items-start mb-6">
-            <LocationIcon />
             <div>
-              <p className="font-semibold">ул. Некрасова, д. 45</p>
-              <p className="text-gray-500">пн-пт 10:00 - 20:00, сб-вс 10:00 - 18:00</p>
+              <label htmlFor="phone" className="block text-sm font-medium text-gray-700">Телефон *</label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                placeholder="+7 (XXX) XXX-XX-XX"
+                required
+                className={`mt-1 block w-full border ${formData.phone || status !== 'error' ? 'border-gray-300' : 'border-red-500'} rounded-lg shadow-sm p-3 focus:border-orange-500 focus:ring-orange-500`}
+              />
             </div>
-          </div>
-          <div className="flex items-center mb-8">
-            <PhoneIcon />
-            <p className="font-semibold">+7(383) 310-10-02</p>
-            <div className="flex space-x-2 ml-4">
-              <div className="w-8 h-8 bg-gray-200 rounded-full"></div>
-              <div className="w-8 h-8 bg-gray-200 rounded-full"></div>
-              <div className="w-8 h-8 bg-gray-200 rounded-full"></div>
+            <div>
+              <label htmlFor="service" className="block text-sm font-medium text-gray-700">Выберите услугу</label>
+              <select
+                id="service"
+                name="service"
+                value={formData.service}
+                onChange={handleChange}
+                className="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm p-3 focus:border-orange-500 focus:ring-orange-500 bg-white"
+              >
+                <option value="">-- Выберите из списка --</option>
+                {SERVICES_DATA.map(s => (
+                  <option key={s.id} value={s.title}>{s.title}</option>
+                ))}
+              </select>
             </div>
-          </div>
-          <button className="bg-[#8B7160] hover:bg-[#7a6252] text-white py-3 px-8 rounded-lg">Посмотреть услуги клиник «Аллея»</button>
+            <div>
+              <label htmlFor="comment" className="block text-sm font-medium text-gray-700">Комментарий (описание проблемы)</label>
+              <textarea
+                id="comment"
+                name="comment"
+                rows="3"
+                value={formData.comment}
+                onChange={handleChange}
+                placeholder="Например: Стук в передней подвеске при повороте"
+                className="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm p-3 focus:border-orange-500 focus:ring-orange-500"
+              ></textarea>
+            </div>
+            <CtaButton
+              text={status === 'loading' ? 'Отправка...' : 'Отправить заявку'}
+              type="submit"
+              className="w-full"
+              disabled={status === 'loading'}
+            />
+          </form>
         </div>
       </div>
-    </div>
+    </Section>
   );
 };
 
+/**
+ * Страница Прайс
+ */
+const PricePage = () => (
+  <Section id="price" title="Прайс-лист на популярные услуги">
+    <div className="overflow-x-auto bg-white p-4 rounded-xl shadow-xl">
+      <table className="min-w-full divide-y divide-gray-200">
+        <thead className="bg-gray-50">
+        <tr>
+          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Услуга
+          </th>
+          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Цена от ...
+          </th>
+        </tr>
+        </thead>
+        <tbody className="bg-white divide-y divide-gray-200">
+        {PRICE_LIST_DATA.map((item, index) => (
+          <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+              {item.service}
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 font-bold text-orange-600">
+              {item.price}
+            </td>
+          </tr>
+        ))}
+        </tbody>
+      </table>
+    </div>
+    <p className="text-center text-sm text-gray-500 mt-6">
+      *Цены являются ориентировочными и могут меняться в зависимости от модели автомобиля и сложности работ. Точную стоимость уточняйте по телефону.
+    </p>
+  </Section>
+);
 
-const Footer = () => {
-  return (
-    <footer className="bg-[#333333] text-white">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Top Footer */}
-        <div className="flex flex-wrap justify-between items-center mb-10">
-          <div className="flex items-center">
-            <div className="w-12 h-12 bg-gray-500 rounded-full flex items-center justify-center text-2xl font-bold text-white mr-2">а</div>
-            <div>
-              <p className="font-semibold text-sm">аллея med</p>
-              <p className="font-semibold text-sm">аллея красоты</p>
-            </div>
-            <p className="ml-4 text-xs text-gray-400 border-l border-gray-600 pl-4">Клиники <br/>косметологии</p>
-          </div>
-          <div className="flex space-x-2 my-4 sm:my-0">
-            <div className="w-8 h-8 bg-gray-600 rounded-full"></div>
-            <div className="w-8 h-8 bg-gray-600 rounded-full"></div>
-            <div className="w-8 h-8 bg-gray-600 rounded-full"></div>
-          </div>
-          <div className="text-3xl md:text-4xl font-light">+7 (918) 644-98-98</div>
-          <button className="border border-gray-500 text-white py-2 px-6 rounded-lg text-sm hover:bg-gray-700">Записаться</button>
-        </div>
+/**
+ * Страница О нас
+ */
+const AboutPage = () => (
+  <Section id="about" title="О нас: Ваш надежный партнер в мире автосервиса">
+    <div className="max-w-4xl mx-auto bg-white p-6 rounded-xl shadow-2xl">
+      <div className="md:flex md:space-x-8 items-start">
+        <div className="mb-6 md:mb-0 md:w-1/2">
+          {/* Фото/Имитация фото */}
+          <div className="rounded-xl overflow-hidden shadow-lg border border-gray-200">
 
-        {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-8 text-sm border-t border-gray-700 pt-10">
-          <div className="lg:col-span-2">
-            <div className="flex items-start mb-4">
-              <LocationIcon />
-              <div className="ml-2">
-                <p className="font-semibold">г. Новосибирск</p>
-                <p className="text-gray-400">ул. Семьи Шамшиных, 90/5, офис 11</p>
-                <p className="text-gray-400">ул. Некрасова, д. 45</p>
-              </div>
-            </div>
-            <div className="flex items-start mb-4">
-              <svg className="w-5 h-5 mr-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-              <div className="ml-2">
-                <p className="font-semibold">Режим работы</p>
-                <p className="text-gray-400">пн-пт 10:00 - 20:00, сб-вс 10:00 - 18:00</p>
-              </div>
-            </div>
-            <div className="flex items-start mb-4">
-              <PhoneIcon />
-              <div className="ml-2">
-                <p className="font-semibold">+7(383) 310-10-02</p>
-                <p className="text-gray-400 underline cursor-pointer">Перезвонить мне</p>
-              </div>
-            </div>
-            <div>
-              <p className="font-semibold mb-2">Способы оплаты:</p>
-              <div className="flex space-x-2 items-center">
-                <span className="text-lg font-bold">VISA</span>
-                <div className="w-8 h-5 bg-gray-500"></div>
-                <span className="text-lg font-bold">МИР</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="md:col-start-3">
-            <p className="font-semibold mb-4">О клинике</p>
-            <ul className="space-y-2 text-gray-400">
-              <li><a href="#" className="hover:underline">Лицо</a></li>
-              <li><a href="#" className="hover:underline">Тело</a></li>
-              <li><a href="#" className="hover:underline">Подология</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <p className="font-semibold mb-4">Прайс</p>
-            <ul className="space-y-2 text-gray-400">
-              <li><a href="#" className="hover:underline">Проблематика</a></li>
-              <li><a href="#" className="hover:underline">Новости и акции</a></li>
-              <li><a href="#" className="hover:underline">Контакты</a></li>
-            </ul>
-          </div>
-          <div>
-            <p className="font-semibold mb-4">О клинике</p>
-            <ul className="space-y-2 text-gray-400">
-              <li><a href="#" className="hover:underline">Лицо</a></li>
-              <li><a href="#" className="hover:underline">Тело</a></li>
-              <li><a href="#" className="hover:underline">Подология</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <p className="font-semibold mb-4">Прайс</p>
-            <ul className="space-y-2 text-gray-400">
-              <li><a href="#" className="hover:underline">Проблематика</a></li>
-              <li><a href="#" className="hover:underline">Новости и акции</a></li>
-              <li><a href="#" className="hover:underline">Контакты</a></li>
-            </ul>
+            <img
+              src="https://placehold.co/600x400/0F172A/ffffff?text=Фото+нашего+автосервиса"
+              alt="Автосервис"
+              className="w-full h-auto object-cover"
+              onError={(e) => { e.target.onerror = null; e.target.src = "https://placehold.co/600x400/0F172A/ffffff?text=Наш+Автосервис" }}
+            />
           </div>
         </div>
-
-        {/* Bottom Footer */}
-        <div className="border-t border-gray-700 mt-10 pt-6 text-xs text-gray-400 flex flex-wrap justify-between">
-          <p>Лицензия №ЛО-77-01-013634 от 12.12.2016г.</p>
-          <div className="space-x-4 mt-2 sm:mt-0">
-            <a href="#" className="hover:underline">Политика конфиденциальности</a>
-            <a href="#" className="hover:underline">Пользовательское соглашение</a>
-          </div>
+        <div className="md:w-1/2">
+          <p className="text-gray-700 mb-4 text-lg leading-relaxed">
+            Автосервис **"Драйв"** был основан в 2010 году командой энтузиастов, увлеченных автомобилями. Наша миссия — предоставлять высококачественные услуги по ремонту и обслуживанию, которые доступны каждому автовладельцу. Мы не просто чиним машины, мы заботимся о вашей безопасности и спокойствии на дороге.
+          </p>
+          <p className="text-gray-700 mb-4 text-lg leading-relaxed">
+            В нашем распоряжении современное диагностическое оборудование и только сертифицированные запчасти. Каждый мастер имеет опыт работы более 7 лет и регулярно проходит повышение квалификации. Мы гарантируем честное ценообразование и строгое соблюдение сроков.
+          </p>
+          <ul className="text-gray-700 space-y-2 font-semibold">
+            <li>✅ 10+ лет на рынке</li>
+            <li>✅ Более 5000 довольных клиентов</li>
+            <li>✅ Только оригинальные запчасти</li>
+          </ul>
         </div>
       </div>
-    </footer>
-  );
-};
+    </div>
+  </Section>
+);
 
+/**
+ * Страница Услуги
+ */
+const ServicesPage = () => (
+  <Section id="services" title="Все виды услуг для вашего автомобиля">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      {SERVICES_DATA.map(service => (
+        <ServiceCard
+          key={service.id}
+          title={service.title}
+          description={service.description}
+          icon={service.icon}
+        />
+      ))}
+    </div>
+    <div className="text-center mt-10">
+      <CtaButton
+        text="Посмотреть Прайс-лист"
+        onClick={() => window.location.hash = '#/price'} // Используем хэш для навигации в SPA
+        className="inline-flex"
+      />
+    </div>
+  </Section>
+);
 
-// --- Main App Component --- //
+/**
+ * Главная Страница
+ */
+const HomePage = ({ setActivePage }) => (
+  <>
+    {/* Герой-секция (CTA) */}
+    <div className="bg-gray-900 text-white py-20 md:py-32 relative overflow-hidden">
+      <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1575231362095-2c8c6a51d451?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-center opacity-30"></div>
+      <div className="container mx-auto px-4 max-w-7xl relative z-10 text-center">
+        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-4 drop-shadow-lg">
+          {SITE_TITLE}
+        </h1>
+        <p className="text-xl sm:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto drop-shadow-md">
+          {TAGLINE}
+        </p>
+        <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+          <CtaButton
+            text="Записаться онлайн"
+            onClick={() => setActivePage('contacts')}
+            className="bg-orange-600 hover:bg-orange-700"
+          />
+          <CtaButton
+            text="Позвонить нам"
+            href={`tel:${CONTACT_INFO.phone1}`}
+            icon={Phone}
+            className="bg-gray-700 hover:bg-gray-600"
+          />
+        </div>
+      </div>
+    </div>
 
-export default function App() {
+    {/* Секция Услуги (3-6 плиток) */}
+    <Section id="home-services" title="Наши основные услуги" className="bg-gray-50">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {SERVICES_DATA.slice(0, 4).map(service => (
+          <ServiceCard
+            key={service.id}
+            title={service.title}
+            description={service.description.substring(0, 60) + '...'}
+            icon={service.icon}
+          />
+        ))}
+      </div>
+      <div className="text-center mt-8">
+        <CtaButton
+          text="Посмотреть все услуги"
+          onClick={() => setActivePage('services')}
+          className="bg-blue-600 hover:bg-blue-700"
+        />
+      </div>
+    </Section>
+
+    {/* Секция Преимущества */}
+    <Section id="advantages" title="Почему выбирают нас">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+        {ADVANTAGES_DATA.map((adv, index) => (
+          <div key={index} className="p-6 bg-white rounded-xl shadow-lg border-t-4 border-orange-600 transition duration-300 hover:shadow-2xl">
+            <adv.icon className="w-10 h-10 text-orange-600 mx-auto mb-4" />
+            <p className="text-lg font-medium text-gray-700">{adv.text}</p>
+          </div>
+        ))}
+      </div>
+    </Section>
+
+    {/* Секция Фото/Примеры работ */}
+    <Section id="photos" title="Примеры наших работ" className="bg-gray-100">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <PhotoPlaceholder text="Ремонт двигателя" />
+        <PhotoPlaceholder text="Кузовные работы" />
+        <PhotoPlaceholder text="Техобслуживание" />
+        <PhotoPlaceholder text="Диагностика" />
+      </div>
+    </Section>
+
+    {/* Финальный CTA */}
+    <div className="bg-orange-600 py-12 text-center">
+      <div className="container mx-auto px-4 max-w-7xl">
+        <h2 className="text-2xl md:text-3xl font-bold text-white mb-6">
+          Готовы записаться или есть вопросы?
+        </h2>
+        <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+          <CtaButton
+            text="Записаться сейчас"
+            onClick={() => setActivePage('contacts')}
+            className="bg-white text-orange-600 hover:bg-gray-100"
+          />
+          <CtaButton
+            text="Позвонить"
+            href={`tel:${CONTACT_INFO.phone1}`}
+            icon={Phone}
+            className="bg-gray-700 hover:bg-gray-600"
+          />
+        </div>
+      </div>
+    </div>
+  </>
+);
+
+const PhotoPlaceholder = ({ text }) => (
+  <div className="relative overflow-hidden rounded-xl shadow-md h-32 md:h-48 group">
+
+    <img
+      src={`https://placehold.co/400x300/334155/ffffff?text=${text.replace(' ', '+')}`}
+      alt={text}
+      className="w-full h-full object-cover transition duration-300 group-hover:scale-105"
+      onError={(e) => { e.target.onerror = null; e.target.src = "https://placehold.co/400x300/334155/ffffff?text=Работа" }}
+    />
+    <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+      <p className="text-white text-lg font-bold">{text}</p>
+    </div>
+  </div>
+);
+
+// --- Основной Компонент Приложения ---
+
+const App = () => {
+  // Использование хэша URL для управления страницами (SPA routing simulation)
+  const getPageFromHash = useCallback(() => {
+    const hash = window.location.hash.replace('#/', '');
+    const validPages = ['home', 'services', 'price', 'about', 'contacts'];
+    return validPages.includes(hash) ? hash : 'home';
+  }, []);
+
+  const [activePage, setActivePage] = useState(getPageFromHash);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  useEffect(() => {
+    // Обновление страницы при изменении хэша
+    const handleHashChange = () => setActivePage(getPageFromHash());
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, [getPageFromHash]);
+
+  const navigate = (page) => {
+    window.location.hash = `/${page}`;
+    setActivePage(page);
+    setIsMenuOpen(false);
+  };
+
+  const renderPage = () => {
+    switch (activePage) {
+      case 'services':
+        return <ServicesPage />;
+      case 'price':
+        return <PricePage />;
+      case 'about':
+        return <AboutPage />;
+      case 'contacts':
+        return <ContactForm setActivePage={navigate} />;
+      case 'home':
+      default:
+        return <HomePage setActivePage={navigate} />;
+    }
+  };
+
+  const menuItems = [
+    { name: 'Главная', page: 'home' },
+    { name: 'Услуги', page: 'services' },
+    { name: 'Прайс', page: 'price' },
+    { name: 'О нас', page: 'about' },
+    { name: 'Контакты', page: 'contacts' },
+  ];
+
   return (
-    <div className="bg-[#F7F5F2] font-sans">
-      <Header />
-      <main>
-        <HeroSection />
-        <AboutSection />
-        <PartnersSection />
-        <BenefitsSection />
-        <HowItWorksSection />
-        <DetailsSection />
+    <div className="min-h-screen bg-white font-sans text-gray-800 antialiased" style={{ fontFamily: 'Inter, sans-serif' }}>
+      {/* Подключение Tailwind CSS */}
+      <script src="https://cdn.tailwindcss.com"></script>
+      {/* SEO-мета для демонстрации */}
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>{SITE_TITLE} - {TAGLINE}</title>
+      <meta name="description" content="Полный спектр услуг автосервиса: диагностика, ремонт двигателей, подвески, кузовной ремонт. Быстро, качественно, с гарантией." />
+
+      {/* Шапка/Навигация */}
+      <header className="sticky top-0 z-50 bg-gray-900 shadow-xl">
+        <div className="container mx-auto px-4 max-w-7xl flex justify-between items-center py-4">
+          {/* Логотип */}
+          <div
+            className="text-2xl font-extrabold text-orange-600 cursor-pointer hover:text-orange-500 transition"
+            onClick={() => navigate('home')}
+          >
+            {SITE_TITLE.toUpperCase()}
+          </div>
+
+          {/* Меню для Desktop */}
+          <nav className="hidden md:flex space-x-6">
+            {menuItems.map(item => (
+              <button
+                key={item.page}
+                onClick={() => navigate(item.page)}
+                className={`text-lg font-medium py-2 transition duration-300 ${
+                  activePage === item.page
+                    ? 'text-orange-600 border-b-2 border-orange-600'
+                    : 'text-gray-300 hover:text-orange-400'
+                }`}
+              >
+                {item.name}
+              </button>
+            ))}
+          </nav>
+
+          {/* CTA на Desktop */}
+          <a
+            href={`tel:${CONTACT_INFO.phone1}`}
+            className="hidden md:block px-4 py-2 text-sm font-semibold bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition"
+          >
+            {CONTACT_INFO.phone1}
+          </a>
+
+          {/* Кнопка Меню для Mobile */}
+          <button
+            className="md:hidden text-gray-300 hover:text-orange-400 transition"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Toggle Menu"
+          >
+            {isMenuOpen ? <X className="w-8 h-8" /> : <Menu className="w-8 h-8" />}
+          </button>
+        </div>
+
+        {/* Mobile Меню */}
+        <div
+          className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+            isMenuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
+          } bg-gray-800`}
+        >
+          <nav className="flex flex-col p-4 space-y-2">
+            {menuItems.map(item => (
+              <button
+                key={item.page}
+                onClick={() => navigate(item.page)}
+                className={`text-left text-lg font-medium p-3 rounded-lg transition duration-300 ${
+                  activePage === item.page
+                    ? 'bg-orange-600 text-white'
+                    : 'text-gray-300 hover:bg-gray-700 hover:text-orange-400'
+                }`}
+              >
+                {item.name}
+              </button>
+            ))}
+            <a
+              href={`tel:${CONTACT_INFO.phone1}`}
+              className="mt-4 block w-full text-center px-4 py-3 text-lg font-bold bg-green-500 text-white rounded-lg hover:bg-green-600 transition"
+            >
+              <Phone className="w-5 h-5 inline mr-2" /> Позвонить
+            </a>
+          </nav>
+        </div>
+      </header>
+
+      {/* Основной контент */}
+      <main className="flex-grow">
+        {renderPage()}
       </main>
-      <Footer />
+
+      {/* Футер */}
+      <footer className="bg-gray-900 text-gray-400 py-8">
+        <div className="container mx-auto px-4 max-w-7xl text-center">
+          <p className="text-lg font-bold text-orange-600 mb-2">{SITE_TITLE}</p>
+          <p className="text-sm mb-4">
+            {CONTACT_INFO.address}
+            <br />
+            <a href={`tel:${CONTACT_INFO.phone1}`} className="hover:text-orange-400 transition">{CONTACT_INFO.phone1}</a> | <a href={`mailto:${CONTACT_INFO.email}`} className="hover:text-orange-400 transition">{CONTACT_INFO.email}</a>
+          </p>
+          <nav className="space-x-4 mb-4">
+            {menuItems.map(item => (
+              <button
+                key={item.page}
+                onClick={() => navigate(item.page)}
+                className="text-sm hover:text-orange-400 transition"
+              >
+                {item.name}
+              </button>
+            ))}
+          </nav>
+          <p className="text-xs mt-6">&copy; {new Date().getFullYear()} {SITE_TITLE}. Все права защищены. </p>
+          <p className="text-xs text-gray-600 mt-1">
+            *Требуется SSL и SEO-оптимизация (мета-теги, чистая структура) для PageSpeed 90+.
+          </p>
+        </div>
+      </footer>
     </div>
-  )
-}
+  );
+};
+
+export default App;
